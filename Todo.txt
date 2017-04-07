@@ -1,5 +1,52 @@
 Program:
 
+    Hierarchy of objects:
+
+        To Be Placed:
+
+
+        Budget Program:
+
+            Gui:
+                -each page should have its own class separate from the launch class (which should be very small)
+
+            User:
+
+                Budget:
+                    -name
+                    -total budgeted
+
+                    Budget Section:
+                        -name
+                        -amount total
+                        -amount spent
+                            -from this you can derive how much is left
+
+
+
+                Account:
+                    -account name
+                    -balance
+
+
+                BankInfoParser:
+
+                    -drag and drop capability
+                    -parser interface that all parsers have to implement
+
+                    Switch statment to what kind of data it is:
+
+                        csv:
+
+                        other...:
+                            -find these file formats
+
+
+
+
+
+
+
     history:
         -store csv files of account activity for future reference
             -use these files for all the history with transactions
@@ -7,17 +54,31 @@ Program:
         -store balance info
             -admin section to set current balance when first setting up program
 
+    use logger 4j
 
     Functionality:
 
+        -should say when account was last updated in some kind of info tab
+
         -help predict future financial status
 
-        budget should be able to set for any ammount of time wanted
+        budget should be able to set for any amount of time wanted
 
-        admin section should be able to switch the view between a 1 / 2 / 3 / 6 / year budget view
+        when account clicked on it should update the middle scrollpane with that account info
+
+        admin section should be able to switch the view between a 1 week / 1 month / 2 / 3 / 6 / year budget view
             -combo box
+            -maybe enum if it makes sense
+            -converting function that should
 
     Display:
         upper right:
             -should display the current balance
 
+
+    References:
+        css:
+            http://www.guigarage.com/2013/09/lets-get-wet/
+            https://examples.javacodegeeks.com/desktop-java/javafx/javafx-css-tutorial/
+            https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#region
+           
