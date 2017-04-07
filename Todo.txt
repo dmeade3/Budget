@@ -10,6 +10,21 @@ Program:
             Gui:
                 -each page should have its own class separate from the launch class (which should be very small)
 
+                Top:
+                    -admin like options
+
+                Bottom:
+                    -idk if this need to be a panel
+
+                Left:
+                    account selection
+
+                Right:
+
+                Center:
+
+                    -if budget clicked then an edit page appears with options to edit the budget
+
             User:
 
                 Budget:
@@ -21,7 +36,6 @@ Program:
                         -amount total
                         -amount spent
                             -from this you can derive how much is left
-
 
 
                 Account:
@@ -54,7 +68,6 @@ Program:
         -store balance info
             -admin section to set current balance when first setting up program
 
-    use logger 4j
 
     Functionality:
 
@@ -81,4 +94,3 @@ Program:
             http://www.guigarage.com/2013/09/lets-get-wet/
             https://examples.javacodegeeks.com/desktop-java/javafx/javafx-css-tutorial/
             https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#region
-           
