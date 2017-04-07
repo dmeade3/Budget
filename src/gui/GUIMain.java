@@ -4,9 +4,12 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import util.SystemInfo;
 
@@ -33,8 +36,11 @@ public class GUIMain extends Application
         Label label4 = new Label("Bottom Label");
 
 
+
         sceneRoot.setTop(label1);
-        sceneRoot.setLeft(label2);
+
+	    sceneRoot.setLeft(createLeftSideTree());
+
         sceneRoot.setRight(label3);
         sceneRoot.setBottom(label4);
 
@@ -42,7 +48,6 @@ public class GUIMain extends Application
         ////// Main scene //////
         showScene(stage);
         setUpSceneListeners();
-
     }
 
     private void showScene(Stage stage)
@@ -56,18 +61,47 @@ public class GUIMain extends Application
         stage.show();
     }
 
+	private StackPane createLeftSideTree()
+	{
+
+		// TODO needs renaming of variables
+		// TODO read in account from account file
+		// TODO decide the format of stored info in program
+		TreeItem<String> rootTreeItem = new TreeItem<> ("Accounts:");
+		rootTreeItem.setExpanded(true);
+
+		for (int i = 1; i < 6; i++)
+		{
+			TreeItem<String> item = new TreeItem<> ("Company: " + i);
+			rootTreeItem.getChildren().add(item);
+
+			for (int r = 1; r < 6; r++)
+			{
+				TreeItem<String> item2 = new TreeItem<> ("Account: #" + r);
+				item.getChildren().add(item2);
+			}
+		}
+		TreeView<String> tree = new TreeView<> (rootTreeItem);
+
+
+		StackPane root = new StackPane();
+		root.getChildren().addAll(tree);
+
+		return root;
+	}
+
     private void setUpSceneListeners()
     {
         scene.getWindow().setOnCloseRequest(event ->
         {
             System.out.println("Closing");
-
             Platform.exit();
         });
 
         scene.setOnDragOver(event ->
         {
             Dragboard db = event.getDragboard();
+
             if (db.hasFiles())
             {
                 event.acceptTransferModes(TransferMode.COPY);
@@ -82,6 +116,7 @@ public class GUIMain extends Application
         {
             Dragboard db = event.getDragboard();
             boolean success = false;
+
             if (db.hasFiles())
             {
                 success = true;
@@ -93,6 +128,7 @@ public class GUIMain extends Application
                     System.out.println("Received: " +filePath);
                 }
             }
+
             event.setDropCompleted(success);
             event.consume();
         });

@@ -1,0 +1,23 @@
+Program:
+
+    history:
+        -store csv files of account activity for future reference
+            -use these files for all the history with transactions
+
+        -store balance info
+            -admin section to set current balance when first setting up program
+
+
+    Functionality:
+
+        -help predict future financial status
+
+        budget should be able to set for any ammount of time wanted
+
+        admin section should be able to switch the view between a 1 / 2 / 3 / 6 / year budget view
+            -combo box
+
+    Display:
+        upper right:
+            -should display the current balance
+
