@@ -29,10 +29,11 @@
     -fx-font-size: 12pt;
     -fx-font-family: "Verdana";
 
-    -fx-base: rgb(200, 250, 250);
-    -fx-background: rgb(25, 25, 25);
-    -fx-control-inner-background: rgb(75, 75, 75);
+    /*-fx-base: rgb(200, 250, 250);*/
+    /*-fx-background: rgb(25, 25, 25);*/
+    /*-fx-control-inner-background: rgb(75, 75, 75);*/
 }
+
 
 
 

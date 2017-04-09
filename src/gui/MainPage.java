@@ -1,19 +1,22 @@
 package gui;
 
+import dev_test_area.BudgetWithProgressBar;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+import user.budget.Budget;
 import util.SystemInfo;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 import static util.SystemInfo.PROGRAM_NAME;
 
@@ -27,7 +30,7 @@ public class MainPage
     public static void showScene(Stage stage, Scene scene, BorderPane sceneRoot)
     {
         Label label1 = new Label("Top Label");
-        Label label2 = new Label("Left Label");
+        //Label label2 = new Label("Left Label");
         Label label3 = new Label("Right Label");
         Label label4 = new Label("Bottom Label");
 
@@ -38,6 +41,9 @@ public class MainPage
 
         sceneRoot.setRight(label3);
         sceneRoot.setBottom(label4);
+
+
+	    sceneRoot.setCenter(getCenterTabPane());
 
 
         // Set up scene
@@ -52,6 +58,43 @@ public class MainPage
         // Needs to be after set scene to compile correctly
         setUpSceneListeners(scene);
     }
+
+	private static TabPane getCenterTabPane()
+	{
+		// make the middle stack pane // todo make a method / class to make this simpler
+		// TODO this scroll pane should be in a tabpane, the tab pane should be its own object
+		TabPane centerTabPane = new TabPane();
+
+
+		ScrollPane middleScrollPane = new ScrollPane();
+		middleScrollPane.setFitToHeight(true);
+		middleScrollPane.setFitToWidth(true);
+
+		ListView<BudgetWithProgressBar> mainbudgetMiddleList = new ListView<>();
+
+		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget",  100,  1100)));
+		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget2", 200,  1000)));
+		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget3", 300,  900)));
+		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget4", 400,  800)));
+		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget5", 500,  700)));
+		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget6", 600,  600)));
+		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget2", 700,  500)));
+		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget3", 800,  400)));
+		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget4", 900,  300)));
+		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget5", 1000, 200)));
+		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget6", 1100, 100)));
+
+		middleScrollPane.setContent(mainbudgetMiddleList);
+
+
+		Tab budgetTab = new Tab("Budget");
+		budgetTab.setContent(middleScrollPane);
+		budgetTab.setClosable(false);
+
+		centerTabPane.getTabs().add(budgetTab);
+
+		return centerTabPane;
+	}
 
     public static StackPane createLeftSideTree()
     {

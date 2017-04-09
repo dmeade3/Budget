@@ -1,6 +1,7 @@
 package transaction_handling;
 
 import com.opencsv.CSVReader;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 import java.io.FileReader;
@@ -62,7 +63,9 @@ public class WellsFargoTransactionParser
 
     public static void main(String... args)
     {
-        WellsFargoTransactionParser wellsFargoTransactionParser = new WellsFargoTransactionParser("C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Budget\\test_input_files\\Checking1.csv");
+	    BasicConfigurator.configure();
+
+        WellsFargoTransactionParser wellsFargoTransactionParser = new WellsFargoTransactionParser("C:\\Users\\David\\Desktop\\Intelij Workspace\\Budget\\test_input_files\\Checking1.csv");
 
         List<Transaction> transactions = wellsFargoTransactionParser.parseTransactions();
 

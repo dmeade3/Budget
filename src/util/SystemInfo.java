@@ -9,7 +9,7 @@ public class SystemInfo
 
     public static final String MAIN_STYLE_SHEET_NAME = "main.css";
 
-    public static final int STARTING_SCENE_WIDTH = 1500;
+    public static final int STARTING_SCENE_WIDTH = 1700;
 
     public static final int STARTING_SCENE_HEIGHT = 1200;
 }

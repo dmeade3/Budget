@@ -2,9 +2,6 @@ Program:
 
     Hierarchy of objects:
 
-        To Be Placed:
-
-
         Budget Program:
 
             Gui:
@@ -18,18 +15,43 @@ Program:
 
                 Left:
                     account selection
+                    -tree root is "Overeall" and gives summary
+                    -credit cards handled differently than checking
+                    -savings account handled like checking but with the addition of predicting how much will be there in an amount of time
+                    -maybe handle brokerage the same way
 
                 Right:
 
                 Center:
+                    -is tabbed:
+                        Transaction tab:
 
-                    -if budget clicked then an edit page appears with options to edit the budget
+                        Budget tab:
+                            -if budget clicked then an edit page appears with options to edit the budget
+                            -buget should have progress bar
+                                -green
+                            -only have a slider to adjust the budget on the edit page
+                            -if budget over it should be red
+
+
+
+            User: Has a Budget
+                Budget has budget sections
+
+            User: Has account's
+
+
+
+            has a = extends
+            is a = implements
 
             User:
+                -has associated mapping of vendors to categories
 
                 Budget:
                     -name
                     -total budgeted
+                    -total spent
 
                     Budget Section:
                         -name
@@ -59,7 +81,14 @@ Program:
 
 
 
-
+    -known vendors list
+        -mapped to a specific catagory to help along with the catagory matching
+        -maybe make catagories an enum
+            -only disadvantage is that you cant modify
+        -learns over time
+        -is saved and read in each time
+            -EX   Walmart:->:groceries
+                :->: as the mapping symbol
 
     history:
         -store csv files of account activity for future reference
