@@ -1,7 +1,9 @@
-package dev_test_area;
+package gui.components;
 
 import gui.GUIMain;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -19,7 +21,7 @@ public class BudgetWithProgressBar extends GridPane
 		budgetVisualRoot = this;
 		//budgetVisualRoot.setGridLinesVisible(true);
 
-		double maxBudgetVal = budget.getBudgetLimit();
+		int maxBudgetVal = budget.getBudgetLimit();
 		double amountLeft = maxBudgetVal - budget.getAmountSpent();
 		final ProgressBar progressBar = new ProgressBar(budget.getAmountSpent() / maxBudgetVal);
 		progressBar.setMaxWidth(3000);

@@ -42,7 +42,7 @@ public class WellsFargoTransactionParser
             {
                 if (row.length > 1)
                 {
-                    int checkNumber = -1;
+                    int checkNumber = 0;
 
                     if (!row[3].equals(""))
                     {

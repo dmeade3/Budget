@@ -24,17 +24,27 @@
 }
 */
 
-.root todo was here
+.root
 {
     -fx-font-size: 12pt;
     -fx-font-family: "Verdana";
 
-    /*-fx-base: rgb(200, 250, 250);*/
-    /*-fx-background: rgb(25, 25, 25);*/
-    /*-fx-control-inner-background: rgb(75, 75, 75);*/
+    -fx-base: rgb(204, 204, 204);
+    -fx-background: rgb(204, 204, 204);
+    -fx-control-inner-background: rgb(240, 240, 240);
 }
 
+/*TreeView
+{
 
+
+}
+
+TabPane
+{
+
+
+}*/
 
 
 /*ToggleButton

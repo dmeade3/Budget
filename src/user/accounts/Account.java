@@ -6,6 +6,18 @@ package user.accounts;
  * <p>
  * Created by David on 4/9/2017.
  */
-public class Account
+public abstract class Account
 {
+
+    // TODO make this a super class or interface that other account types can be created from
+
+    protected String name;
+    protected AccountType accountType;
+
+    Account(String name, AccountType accountType)
+    {
+        this.name = name;
+        this.accountType = accountType;
+    }
+
 }

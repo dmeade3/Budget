@@ -1,18 +1,25 @@
 Program:
 
-
-
     Current:
 
-        [ ] work on reading in info instead of reading in fake stuff right from source code
-        [ ] work on css theme over time
+         Should be the top 3 things working on currently
+            [ ] all data should be user specific
+            [ ] work on css theme over time
+            [ ] refactor what i have to be smaller classes, especially gui, for ease of future use
 
 
 
 
 
-
-
+    -bottom portion could be used to filter out results
+    -all transactions should be account specific
+    -make the tabs look like theyre selected
+    -test with completely blank user and make sure doesnt fail
+    -find way to center admin sections title
+    -be able to add budget sections
+    -be able to add transactions
+    -be able to add users
+    -be able to add accounts
 
 
     Hierarchy of objects:
@@ -29,8 +36,7 @@ Program:
                     -idk if this need to be a panel
 
                 Left:
-                    account selection
-                    -tree root is "Overeall" and gives summary
+                    -account selection
                     -credit cards handled differently than checking
                     -savings account handled like checking but with the addition of predicting how much will be there in an amount of time
                     -maybe handle brokerage the same way
@@ -39,14 +45,18 @@ Program:
 
                 Center:
                     -is tabbed:
+
+                        Graph tab:
+
+                        Summary Tab:
+
                         Transaction tab:
+
+
 
                         Budget tab:
                             -if budget clicked then an edit page appears with options to edit the budget
-                            -buget should have progress bar
-                                -green
                             -only have a slider to adjust the budget on the edit page
-                            -if budget over it should be red
 
 
 
@@ -54,8 +64,6 @@ Program:
                 Budget has budget sections
 
             User: Has account's
-
-
 
             has a = extends
             is a = implements
@@ -130,10 +138,6 @@ Program:
             -combo box
             -maybe enum if it makes sense
             -converting function that should
-
-    Display:
-        upper right:
-            -should display the current balance
 
 
     References:

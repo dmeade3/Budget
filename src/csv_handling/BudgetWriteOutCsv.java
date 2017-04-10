@@ -8,6 +8,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.SystemInfo.CURRENT_USER;
+
 /**
  * Project: Budget
  * File Name: BudgetWriteOutCsv.java
@@ -66,6 +68,6 @@ public class BudgetWriteOutCsv
 		budgets.add(new Budget("Budget item 4", 123, 123));
 
 
-		writeOut(budgets, SystemInfo.USERS_PATH + "David\\budget.csv");
+		writeOut(budgets, SystemInfo.USERS_PATH + "\\" + CURRENT_USER + "\\budget.csv");
 	}
 }

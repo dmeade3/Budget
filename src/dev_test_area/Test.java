@@ -1,5 +1,6 @@
 package dev_test_area;
 
+import gui.components.BudgetWithProgressBar;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
