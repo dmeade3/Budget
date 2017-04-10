@@ -30,8 +30,6 @@ public class GUIMain extends Application
         MainPage.showScene(stage, scene, sceneRoot);
     }
 
-
-
     // Start the whole application
     public static void main(String[] args)
     {

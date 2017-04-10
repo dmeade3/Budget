@@ -59,6 +59,7 @@ public class BudgetWithProgressBar extends GridPane
 
 		this.getStylesheets().add(SystemInfo.MAIN_STYLE_SHEET_NAME);
 
+		// Border
 		this.setStyle("-fx-padding: 10;" +
 			"-fx-border-style: solid inside;" +
 			"-fx-border-width: 2;" +

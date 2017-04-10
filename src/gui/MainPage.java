@@ -10,13 +10,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+import csv_handling.transaction_handling.Transaction;
 import user.budget.Budget;
 import util.SystemInfo;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
 import static util.SystemInfo.PROGRAM_NAME;
 
@@ -65,38 +63,80 @@ public class MainPage
 		// TODO this scroll pane should be in a tabpane, the tab pane should be its own object
 		TabPane centerTabPane = new TabPane();
 
+		centerTabPane.getTabs().add(createBugetTab());
 
+
+		centerTabPane.getTabs().add(createTransactionTabTab());
+
+		return centerTabPane;
+	}
+
+	// TODO Eventually make these objects
+	private static Tab createTransactionTabTab()
+	{
+		ScrollPane scrollPane = new ScrollPane();
+		scrollPane.setFitToHeight(true);
+		scrollPane.setFitToWidth(true);
+
+		ListView<String> mainTransactionMiddleList = new ListView<>();
+
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 999, "?", -1, "This is a description").toString());
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 9999, "?", -1, "This is a description").toString());
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 99, "?", -1, "This is a description").toString());
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 999, "?", -1, "This is a description").toString());
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 99999, "?", -1, "This is a description").toString());
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 999, "?", -1, "This is a description").toString());
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 99999, "?", -1, "This is a description").toString());
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 9999, "?", -1, "This is a description").toString());
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 997, "?", -1, "This is a description").toString());
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 996, "?", -1, "This is a description").toString());
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 995, "?", -1, "This is a description").toString());
+		mainTransactionMiddleList.getItems().add(new Transaction("4/29/1994", 994, "?", -1, "This is a description").toString());
+
+
+
+		scrollPane.setContent(mainTransactionMiddleList);
+
+
+		Tab transactionTab = new Tab("Transactions");
+		transactionTab.setClosable(false);
+		transactionTab.setContent(scrollPane);
+
+		return transactionTab;
+	}
+
+	// TODO Eventually make these objects
+	private static Tab createBugetTab()
+	{
 		ScrollPane middleScrollPane = new ScrollPane();
 		middleScrollPane.setFitToHeight(true);
 		middleScrollPane.setFitToWidth(true);
 
-		ListView<BudgetWithProgressBar> mainbudgetMiddleList = new ListView<>();
+		ListView<BudgetWithProgressBar> mainBudgetMiddleList = new ListView<>();
 
-		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget",  100,  1100)));
-		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget2", 200,  1000)));
-		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget3", 300,  900)));
-		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget4", 400,  800)));
-		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget5", 500,  700)));
-		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget6", 600,  600)));
-		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget2", 700,  500)));
-		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget3", 800,  400)));
-		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget4", 900,  300)));
-		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget5", 1000, 200)));
-		mainbudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget6", 1100, 100)));
+		mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget 1",  100,  1100)));
+		mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget 2",  200,  1000)));
+		mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget 3",  300,  900)));
+		mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget 4",  400,  800)));
+		mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget 5",  500,  700)));
+		mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget 6",  600,  600)));
+		mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget 12", 700,  500)));
+		mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget 13", 800,  400)));
+		mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget 14", 900,  300)));
+		mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget 15", 1000, 200)));
+		mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget("Muh budget 16", 1100, 100)));
 
-		middleScrollPane.setContent(mainbudgetMiddleList);
+		middleScrollPane.setContent(mainBudgetMiddleList);
 
 
 		Tab budgetTab = new Tab("Budget");
 		budgetTab.setContent(middleScrollPane);
 		budgetTab.setClosable(false);
 
-		centerTabPane.getTabs().add(budgetTab);
-
-		return centerTabPane;
+		return budgetTab;
 	}
 
-    public static StackPane createLeftSideTree()
+    private static StackPane createLeftSideTree()
     {
 
         // TODO needs renaming of variables

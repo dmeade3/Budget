@@ -5,6 +5,10 @@ package util;
  */
 public class SystemInfo
 {
+	public static final String PROGRAM_PATH = System.getProperty("user.dir");
+
+	public static final String USERS_PATH = PROGRAM_PATH + "\\program_data\\users";
+
     public static final String PROGRAM_NAME = "Budget";
 
     public static final String MAIN_STYLE_SHEET_NAME = "main.css";

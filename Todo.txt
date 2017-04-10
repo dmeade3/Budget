@@ -1,5 +1,20 @@
 Program:
 
+
+
+    Current:
+
+        [ ] work on reading in info instead of reading in fake stuff right from source code
+        [ ] work on css theme over time
+
+
+
+
+
+
+
+
+
     Hierarchy of objects:
 
         Budget Program:
@@ -8,7 +23,7 @@ Program:
                 -each page should have its own class separate from the launch class (which should be very small)
 
                 Top:
-                    -admin like options
+                    -admin like options,
 
                 Bottom:
                     -idk if this need to be a panel
@@ -99,6 +114,9 @@ Program:
 
 
     Functionality:
+        -investment tracking
+        -light themed
+        -indicate the user in the top admin portion
 
         -should say when account was last updated in some kind of info tab
 

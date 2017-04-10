@@ -12,6 +12,26 @@ public class Budget
 	private int budgetLimit;
 	private double amountSpent;
 
+	@Override
+	public String toString()
+	{
+		return "Budget{" +
+				"name='" + name + '\'' +
+				", budgetLimit=" + budgetLimit +
+				", amountSpent=" + amountSpent +
+				'}';
+	}
+
+	public String csvToString()
+	{
+		return "\"" + name + "\",\"" + budgetLimit + "\",\"" + amountSpent + "\"\n";
+	}
+
+	public static String csvHeader()
+	{
+		return "name,budgetLimit,amountSpent\n";
+	}
+
 	public Budget(String name, int budgetLimit, double amountSpent)
 	{
 		this.name = name;
