@@ -11,5 +11,17 @@ public class MainCenterTabPane extends TabPane
     {
         getTabs().add(new BudgetTab());
         getTabs().add(new TransactionTab());
+
+
+
+        //addListeners();
     }
+
+    /*private void addListeners()
+    {
+        // Make tabpane look like its selected
+        SingleSelectionModel<Tab> selectionModel = getSelectionModel();
+
+        add
+    }*/
 }

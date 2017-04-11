@@ -1,11 +1,11 @@
-package dev_test_area;
+package test_area;
 
 import gui.components.BudgetWithProgressBar;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.log4j.BasicConfigurator;
-import user.budget.Budget;
+import user.budget.BudgetSection;
 
 /**
  * Project: Budget
@@ -21,7 +21,7 @@ public class Test extends Application
 	{
 		///BudgetWithProgressBar budgetWithProgressBar = new BudgetWithProgressBar();
 
-		Scene scene = new Scene(new BudgetWithProgressBar(new Budget("Muh budget", 344, 100)), 500, 150);
+		Scene scene = new Scene(new BudgetWithProgressBar(new BudgetSection("Muh budget", 344, 100)), 500, 150);
 
 		stage.setScene(scene);
 		stage.setTitle("Test");

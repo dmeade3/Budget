@@ -1,7 +1,6 @@
-package csv_handling;
+package data.csv_handling;
 
-import sun.plugin2.util.SystemUtil;
-import user.budget.Budget;
+import user.budget.BudgetSection;
 import util.SystemInfo;
 
 import java.io.*;
@@ -18,7 +17,7 @@ import static util.SystemInfo.CURRENT_USER;
  */
 public class BudgetWriteOutCsv
 {
-	public static void writeOut(List<Budget> budgets, String fileOutPath)
+	public static void writeOut(List<BudgetSection> budgetSections, String fileOutPath)
 	{
 		BufferedWriter bufferedWriter = null;
 		try
@@ -33,11 +32,11 @@ public class BudgetWriteOutCsv
 			Writer writer = new FileWriter(myFile);
 			bufferedWriter = new BufferedWriter(writer);
 
-			bufferedWriter.write(Budget.csvHeader());
+			bufferedWriter.write(BudgetSection.csvHeader());
 
-			for (Budget budget : budgets)
+			for (BudgetSection budgetSection : budgetSections)
 			{
-				bufferedWriter.write(budget.csvToString());
+				bufferedWriter.write(budgetSection.csvToString());
 			}
 		}
 		catch (IOException e)
@@ -61,13 +60,13 @@ public class BudgetWriteOutCsv
 
 	public static void main(String... args)
 	{
-		List<Budget> budgets = new ArrayList<>();
-		budgets.add(new Budget("Budget item 1", 123, 123));
-		budgets.add(new Budget("Budget item 2", 123, 123));
-		budgets.add(new Budget("Budget item 3", 123, 123));
-		budgets.add(new Budget("Budget item 4", 123, 123));
+		List<BudgetSection> budgetSections = new ArrayList<>();
+		budgetSections.add(new BudgetSection("Budget item 1", 123, 123));
+		budgetSections.add(new BudgetSection("Budget item 2", 123, 123));
+		budgetSections.add(new BudgetSection("Budget item 3", 123, 123));
+		budgetSections.add(new BudgetSection("Budget item 4", 123, 123));
 
 
-		writeOut(budgets, SystemInfo.USERS_PATH + "\\" + CURRENT_USER + "\\budget.csv");
+		writeOut(budgetSections, SystemInfo.USERS_PATH + "\\" + CURRENT_USER + "\\budget.csv");
 	}
 }

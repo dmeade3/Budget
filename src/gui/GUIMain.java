@@ -27,7 +27,7 @@ public class GUIMain extends Application
         logger.info("Starting: " + PROGRAM_NAME);
 
         ////// Main scene //////
-        MainPage.showScene(stage, scene, sceneRoot);
+        RootPage.showScene(stage, scene, sceneRoot);
     }
 
     // Start the whole application

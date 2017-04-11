@@ -118,7 +118,6 @@ public class TransactionEditor extends GridPane
             {
                 if (!listOfFiles[i].isDirectory())
                 {
-                    // TODO turn these prints into logging
                     try
                     {
                         Path path = Paths.get(String.valueOf(listOfFiles[i]));

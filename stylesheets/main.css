@@ -1,50 +1,131 @@
-/*.root
+.root
 {
     -fx-font-size: 12pt;
-    /*-fx-font-family: "Verdana";
-    -fx-text-fill: rgb(0, 0, 0);
-    -fx-base: rgb(93, 118, 158);
-    -fx-background: rgb(225, 228, 203);
+    -fx-font-family: "Verdana";
+    -fx-text-fill: #E6E6E6;
 
+    -fx-base: rgb(204, 204, 204);
+    -fx-background: rgb(204, 204, 204);
+    -fx-control-inner-background: #1654FF;
     -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;*/
-/*}
+    -fx-background-radius: 10 10 10 10;
+}
 
+/*
+    TAB PANE
+*/
+.tab-pane .tab-header-area .tab-header-background
+{
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+    -fx-control-inner-background: #3c3c3c;
+}
+
+.tab
+{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+
+.tab-pane .tab
+{
+    -fx-background-color: #e6e6e6;
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label
+{
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label
+{
+    -fx-alignment: CENTER;
+    -fx-text-fill: #96b946;
+}
+
+/*
+    Progress Indicator
+*/
+.progress-indicator .percentage
+{
+    -fx-fill: #E6E6E6;
+}
+
+/*
+    Button
+*/
 .button
 {
     /*-fx-text-fill: rgb(0, 0, 0);
-    -fx-border-color: rgb(49, 89, 23);
-    -fx-border-radius: 5;*/
-/*    -fx-padding: 3 6 6 6;
+    -fx-border-color: rgb(49, 89, 23);*/
+    -fx-border-radius: 5;
+    -fx-padding: 3 6 6 6;
 }
+
+/*
+    Tree view
+*/
+.tree-view, .tree-cell
+{
+    -fx-background-color: rgb(215, 215, 215);
+    -fx-text-fill: black;
+}
+
+.tree-cell:expanded, .tree-cell:sub-tree-item
+{
+    /*-fx-background-color: #404040 ;*/
+}
+
+.tree-cell .tree-disclosure-node .arrow
+{
+    -fx-background-color: black;
+}
+
+.tree-cell:selected
+{
+    -fx-font-weight: bold;
+    -fx-text-fill: #468CFF;
+}
+
+.tree-cell
+{
+    -fx-padding: 0.75em 0em 0.75em 0em ;
+}
+
+.tree-cell:sub-tree-item
+{
+    -fx-padding: 0.25em ;
+}
+
+
+
+
+
+
+
+
 /*
 .scroll-pane
 {
     -fx-background: rgb(0, 0, 0);
 }
 */
-
-.root
-{
-    -fx-font-size: 12pt;
-    -fx-font-family: "Verdana";
-
-    -fx-base: rgb(204, 204, 204);
-    -fx-background: rgb(204, 204, 204);
-    -fx-control-inner-background: rgb(240, 240, 240);
-}
-
 /*TreeView
 {
 
 
 }
-
-TabPane
-{
-
-
-}*/
 
 
 /*ToggleButton

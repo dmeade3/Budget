@@ -6,7 +6,7 @@ package user.budget;
  * <p>
  * Created by David on 4/9/2017.
  */
-public class Budget
+public class BudgetSection
 {
 	String name;
 	private int budgetLimit;
@@ -32,7 +32,7 @@ public class Budget
 		return "name,budgetLimit,amountSpent\n";
 	}
 
-	public Budget(String name, int budgetLimit, double amountSpent)
+	public BudgetSection(String name, int budgetLimit, double amountSpent)
 	{
 		this.name = name;
 		this.budgetLimit = budgetLimit;
@@ -44,7 +44,7 @@ public class Budget
 		return name;
 	}
 
-	public int getBudgetLimit()
+	public int getBudgetSectionLimit()
 	{
 		return budgetLimit;
 	}

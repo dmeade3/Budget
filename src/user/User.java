@@ -1,7 +1,7 @@
 package user;
 
 import user.accounts.Account;
-import user.budget.Budget;
+import user.budget.BudgetSection;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class User
 {
 	private String name;
-	private List<Budget> budgets;
+	private List<BudgetSection> budgetSections;
 	private List<Account> accounts;
 
 

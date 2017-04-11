@@ -1,7 +1,8 @@
 package gui.components;
 
-import csv_handling.transaction_handling.Transaction;
+import data.csv_handling.transaction_handling.Transaction;
 import data.MainProgramDatastore;
+import gui.RootPage;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -69,26 +70,7 @@ public class TransactionTab extends Tab
 
             stage.setOnCloseRequest(event ->
             {
-                // Refresh the transactions
-                mainTransactionMiddleList = new ListView<>();
-
-                MainProgramDatastore.getInstance().readInTransactions(USERS_PATH + "\\" + CURRENT_USER + "\\transactions");
-
-	            mainTransactionMiddleList.getItems().add(Transaction.header);
-
-                for (Transaction transaction : MainProgramDatastore.getInstance().getTransactionsList())
-                {
-                    mainTransactionMiddleList.getItems().add(transaction.guiViewString());
-                }
-
-                scrollPane.setFitToHeight(true);
-                scrollPane.setFitToWidth(true);
-                scrollPane.setStyle("-fx-font-size: 10pt;");
-                setClosable(false);
-
-                scrollPane.setContent(mainTransactionMiddleList);
-
-	            setContent(scrollPane);
+                RootPage.reloadCenter();
             });
         });
     }

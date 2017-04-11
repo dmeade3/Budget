@@ -1,6 +1,8 @@
 package gui.components;
 
 import data.MainProgramDatastore;
+import gui.RootPage;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TitledPane;
@@ -12,6 +14,8 @@ import util.SystemInfo;
  */
 public class AdminPane extends TitledPane
 {
+    ComboBox<String> dropDownUser;
+
     public AdminPane()
     {
         super();
@@ -22,7 +26,7 @@ public class AdminPane extends TitledPane
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        ComboBox<String> dropDownUser = new ComboBox<>();
+        dropDownUser = new ComboBox<>();
         MainProgramDatastore.getInstance().readInUserNames();
 
         for (String name : MainProgramDatastore.getInstance().getUserNames())
@@ -49,7 +53,23 @@ public class AdminPane extends TitledPane
 
         // TODO needs listener to load new content / save if not already saved
 
+        setAlignment(Pos.CENTER);
         setContent(gridPane);
         setCollapsible(false);
+
+        addListeners();
+    }
+
+    private void addListeners()
+    {
+        dropDownUser.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) ->
+        {
+            if ((t1 != null) && (!t.equals(t1)))
+            {
+                SystemInfo.CURRENT_USER = dropDownUser.getSelectionModel().getSelectedItem();
+
+                RootPage.reloadAllButAdmin();
+            }
+        });
     }
 }

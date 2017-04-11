@@ -1,7 +1,7 @@
-package csv_handling;
+package data.csv_handling;
 
 import com.opencsv.CSVReader;
-import csv_handling.transaction_handling.Transaction;
+import data.csv_handling.transaction_handling.Transaction;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 

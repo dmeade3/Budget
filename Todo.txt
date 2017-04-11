@@ -1,23 +1,29 @@
 Program:
 
     Current:
-
          Should be the top 3 things working on currently
-            [ ] all data should be user specific
-            [ ] work on css theme over time
+            [ ] add user button / check if user exists / create transactions folder when user created / create transaction folder when tried to be acessed and not found
+            [ ] dont read in duplicate transactions
+            [ ] have a cleanup function that will after a certain event cleanup all transactions in the folder that are duplicates
+                -only clean up if the 2 duplicatesa re in different files
+                -when taking in a new transsaction file just place it in the right folder and read in after placed
             [ ] refactor what i have to be smaller classes, especially gui, for ease of future use
+            [ ] be able to add users
 
 
-
-
-
+    -budget based off transactions and date selected
+    -when transactions read in they need to have info added to them
+        -needs a place for the account
+        -need to add a place for a catargory
+            -catagory empty unless previous mapping exists
+    -budget tab a budget for the whole account
+    -input rules on all text fields / try catches and error messages
+    -make user password protected as an option
+    -the right side should be a summary of what is in the middle if the gui
+    -make header in transactions a different color and font
+    -on close before calling reload should save off any visual settings so you dont have to re-click settings
     -bottom portion could be used to filter out results
-    -when user changed all data should be refreshed
-    -need a method to refresh all data
-    -all transactions should be account specific
-    -make the tabs look like theyre selected
     -test with completely blank user and make sure doesnt fail
-    -find way to center admin sections title
     -when reading in transactions dont read in duplicates
     -be able to add budget sections
     -be able to add transactions
@@ -48,20 +54,17 @@ Program:
 
                 Center:
                     -is tabbed:
-
-                        Graph tab:
+                        Future tab:
+                            tries to help predict future status of finances
 
                         Summary Tab:
+                            -graphs
 
                         Transaction tab:
-
-
 
                         Budget tab:
                             -if budget clicked then an edit page appears with options to edit the budget
                             -only have a slider to adjust the budget on the edit page
-
-
 
             User: Has a Budget
                 Budget has budget sections
@@ -85,11 +88,9 @@ Program:
                         -amount spent
                             -from this you can derive how much is left
 
-
                 Account:
                     -account name
                     -balance
-
 
                 BankInfoParser:
 
@@ -102,9 +103,6 @@ Program:
 
                         other...:
                             -find these file formats
-
-
-
 
 
     -known vendors list

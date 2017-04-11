@@ -1,10 +1,14 @@
 package gui.components;
 
 import com.opencsv.CSVReader;
+import data.csv_handling.transaction_handling.Transaction;
+import gui.RootPage;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
-import user.budget.Budget;
+import javafx.stage.Stage;
+import user.budget.BudgetSection;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,6 +22,8 @@ import static util.SystemInfo.USERS_PATH;
  */
 public class BudgetTab extends Tab
 {
+    ListView<BudgetWithProgressBar> mainBudgetMiddleList;
+
     // TODO Eventually make these objects
     public BudgetTab()
     {
@@ -27,7 +33,7 @@ public class BudgetTab extends Tab
         middleScrollPane.setFitToHeight(true);
         middleScrollPane.setFitToWidth(true);
 
-        ListView<BudgetWithProgressBar> mainBudgetMiddleList = new ListView<>();
+        mainBudgetMiddleList = new ListView<>();
 
         // TODO have better way to point to this file in the future
         try(CSVReader reader = new CSVReader(new FileReader(USERS_PATH + "\\" + CURRENT_USER + "\\budget.csv"), ',' , '"' , 1))
@@ -41,18 +47,43 @@ public class BudgetTab extends Tab
                 // make sure row exists
                 if (row.length > 1)
                 {
-                    mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new Budget(row[0], Integer.valueOf(row[1]), Double.valueOf(row[2]))));
+                    mainBudgetMiddleList.getItems().add(new BudgetWithProgressBar(new BudgetSection(row[0], Integer.valueOf(row[1]), Double.valueOf(row[2]))));
                 }
             }
         }
-        catch (IOException e)
-        {
-            // TODO logger.warn("Could not open file: " + filename);
-        }
+        catch (IOException e) { /* TODO logger.warn("Could not open file: " + filename); */ }
 
         middleScrollPane.setContent(mainBudgetMiddleList);
 
         setContent(middleScrollPane);
         setClosable(false);
+
+        addListeners();
+    }
+
+    private void addListeners()
+    {
+        mainBudgetMiddleList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+        {
+            // TODO
+            // dont activate if its the header
+            if (newValue.equals(Transaction.header))
+            {
+                return;
+            }
+
+            // Launch edit pane
+            Stage stage = new Stage();
+            Scene scene = new Scene(new BudgetEditor(newValue), 300, 200);
+
+            stage.setScene(scene);
+            stage.setTitle("Budget Editor");
+            stage.show();
+
+            stage.setOnCloseRequest(event ->
+            {
+                RootPage.reloadCenter();
+            });
+        });
     }
 }

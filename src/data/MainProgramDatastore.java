@@ -1,9 +1,9 @@
 package data;
 
 import com.opencsv.CSVReader;
-import csv_handling.transaction_handling.Transaction;
+import data.csv_handling.transaction_handling.Transaction;
 import user.accounts.Account;
-import user.budget.Budget;
+import user.budget.BudgetSection;
 
 import java.io.File;
 import java.io.FileReader;
@@ -22,7 +22,7 @@ public class MainProgramDatastore
     private static MainProgramDatastore ourInstance = new MainProgramDatastore();
 
     private List<Account> accountList;
-    private List<Budget> budgetList;
+    private List<BudgetSection> budgetSectionList;
     private List<Transaction> transactionsList;
     private List<String> userNames;
 
@@ -30,7 +30,7 @@ public class MainProgramDatastore
     private MainProgramDatastore()
     {
         accountList = new ArrayList<>();
-        budgetList  = new ArrayList<>();
+        budgetSectionList = new ArrayList<>();
         transactionsList  = new ArrayList<>();
         userNames  = new ArrayList<>();
     }
@@ -50,9 +50,9 @@ public class MainProgramDatastore
         return accountList;
     }
 
-    public List<Budget> getBudgetList()
+    public List<BudgetSection> getBudgetSectionList()
     {
-        return budgetList;
+        return budgetSectionList;
     }
 
     public List<String> getUserNames()
@@ -101,7 +101,7 @@ public class MainProgramDatastore
             if (listOfFiles[i].isFile())
             {
                 // TODO turn these prints into logging
-                System.out.println("File read in: " + listOfFiles[i].getName());
+                //System.out.println("File read in: " + listOfFiles[i].getName());
 
                 // TODO have better way to point to this file in the future
                 try(CSVReader reader = new CSVReader(new FileReader(listOfFiles[i]), ',' , '"' , 0))

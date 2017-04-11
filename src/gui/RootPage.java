@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 import util.SystemInfo;
+
 import java.io.File;
 
 import static util.SystemInfo.PROGRAM_NAME;
@@ -19,23 +20,17 @@ import static util.SystemInfo.PROGRAM_NAME;
 /**
  * Created by dcmeade on 4/7/2017.
  */
-public class MainPage
+public class RootPage
 {
-    private static final Logger logger = Logger.getLogger(MainPage.class.getName());
+    private static final Logger logger = Logger.getLogger(RootPage.class.getName());
+
+    private static BorderPane root;
 
     public static void showScene(Stage stage, Scene scene, BorderPane sceneRoot)
     {
-        Label label3 = new Label("Right Label");
-        Label label4 = new Label("Bottom Label");
+        root = sceneRoot;
 
-
-        sceneRoot.setTop(new AdminPane());
-        sceneRoot.setLeft(new AccountTreeView());
-	    sceneRoot.setCenter(new MainCenterTabPane());
-
-        sceneRoot.setRight(label3);
-        sceneRoot.setBottom(label4);
-
+        loadSceneRoot();
 
         // Set up scene
         scene.getStylesheets().add(SystemInfo.MAIN_STYLE_SHEET_NAME);
@@ -91,5 +86,34 @@ public class MainPage
             event.setDropCompleted(success);
             event.consume();
         });
+    }
+
+    private static void loadSceneRoot()
+    {
+        Label label3 = new Label("Right Label");
+        Label label4 = new Label("Bottom Label");
+
+        root.setTop(new AdminPane());
+        root.setLeft(new AccountTreeView());
+        root.setCenter(new MainCenterTabPane());
+
+        root.setRight(label3);
+        root.setBottom(label4);
+    }
+
+    public static void reloadCenter()
+    {
+        root.setCenter(new MainCenterTabPane());
+    }
+
+    public static void reloadAll()
+    {
+        loadSceneRoot();
+    }
+
+    public static void reloadAllButAdmin()
+    {
+        root.setLeft(new AccountTreeView());
+        root.setCenter(new MainCenterTabPane());
     }
 }
