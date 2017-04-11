@@ -38,6 +38,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/data/MainProgramDatastore.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/dev_test_area/BudgetWithProgressBar.java">
           <value>
             <set />
@@ -59,6 +64,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/gui/MainPage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/gui/components/AdminPane.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/gui/components/TransactionTab.java">
           <value>
             <set />
           </value>

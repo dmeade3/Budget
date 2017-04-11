@@ -69,30 +69,26 @@ public class TransactionTab extends Tab
 
             stage.setOnCloseRequest(event ->
             {
-                mainTransactionMiddleList = new ListView<>();
-
-                // TODO
                 // Refresh the transactions
                 mainTransactionMiddleList = new ListView<>();
 
                 MainProgramDatastore.getInstance().readInTransactions(USERS_PATH + "\\" + CURRENT_USER + "\\transactions");
+
+	            mainTransactionMiddleList.getItems().add(Transaction.header);
 
                 for (Transaction transaction : MainProgramDatastore.getInstance().getTransactionsList())
                 {
                     mainTransactionMiddleList.getItems().add(transaction.guiViewString());
                 }
 
-
-                // TODO replace the scrollpane correctly
-
-                scrollPane = new ScrollPane();
                 scrollPane.setFitToHeight(true);
                 scrollPane.setFitToWidth(true);
                 scrollPane.setStyle("-fx-font-size: 10pt;");
                 setClosable(false);
 
                 scrollPane.setContent(mainTransactionMiddleList);
-                setContent(scrollPane);
+
+	            setContent(scrollPane);
             });
         });
     }

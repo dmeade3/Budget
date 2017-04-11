@@ -1,6 +1,7 @@
 package gui.components;
 
 import data.MainProgramDatastore;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
@@ -33,12 +34,22 @@ public class AdminPane extends TitledPane
 
         SystemInfo.CURRENT_USER = dropDownUser.getSelectionModel().getSelectedItem();
 
-        gridPane.getChildren().addAll(dropDownUser);
+	    // TODO
+	    // Buttons that add users, accounts, budget sections, transactions
+	    Button addUser = new Button("Add User");
+	    Button addAccount = new Button("Add Account");
+	    Button addBudgetSection = new Button("Add Budget Section");
+	    Button addTransaction = new Button("Add Transaction");
+
+        gridPane.add(dropDownUser, 0, 0);
+	    gridPane.add(addUser, 1, 0);
+	    gridPane.add(addAccount, 2, 0);
+	    gridPane.add(addBudgetSection, 3, 0);
+	    gridPane.add(addTransaction, 4, 0);
 
         // TODO needs listener to load new content / save if not already saved
 
         setContent(gridPane);
-
         setCollapsible(false);
     }
 }

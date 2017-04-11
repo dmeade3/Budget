@@ -90,6 +90,7 @@ public class MainProgramDatastore
     // Takes Dir
     public void readInTransactions(String dirName)
     {
+		transactionsList = new ArrayList<>();
 
         // Get all file names under dir
         File folder = new File(dirName);

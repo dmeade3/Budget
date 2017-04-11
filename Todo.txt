@@ -12,10 +12,13 @@ Program:
 
 
     -bottom portion could be used to filter out results
+    -when user changed all data should be refreshed
+    -need a method to refresh all data
     -all transactions should be account specific
     -make the tabs look like theyre selected
     -test with completely blank user and make sure doesnt fail
     -find way to center admin sections title
+    -when reading in transactions dont read in duplicates
     -be able to add budget sections
     -be able to add transactions
     -be able to add users
