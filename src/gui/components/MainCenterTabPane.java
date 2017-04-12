@@ -1,5 +1,6 @@
 package gui.components;
 
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 /**
@@ -10,18 +11,8 @@ public class MainCenterTabPane extends TabPane
     public MainCenterTabPane()
     {
         getTabs().add(new BudgetTab());
+        getTabs().add(new Tab("Summary"));
         getTabs().add(new TransactionTab());
-
-
-
-        //addListeners();
+        getTabs().add(new Tab("Future"));
     }
-
-    /*private void addListeners()
-    {
-        // Make tabpane look like its selected
-        SingleSelectionModel<Tab> selectionModel = getSelectionModel();
-
-        add
-    }*/
 }

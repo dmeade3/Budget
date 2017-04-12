@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
+import user.User;
 import util.SystemInfo;
 
 /**
@@ -27,11 +28,11 @@ public class AdminPane extends TitledPane
         gridPane.setVgap(10);
 
         dropDownUser = new ComboBox<>();
-        MainProgramDatastore.getInstance().readInUserNames();
+        MainProgramDatastore.getInstance().readInUsers();
 
-        for (String name : MainProgramDatastore.getInstance().getUserNames())
+        for (User user : MainProgramDatastore.getInstance().getUsers())
         {
-            dropDownUser.getItems().add(name);
+            dropDownUser.getItems().add(user.getName());
         }
 
         dropDownUser.getSelectionModel().selectFirst();

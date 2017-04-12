@@ -2,6 +2,7 @@ package data;
 
 import com.opencsv.CSVReader;
 import data.csv_handling.transaction_handling.Transaction;
+import user.User;
 import user.accounts.Account;
 import user.budget.BudgetSection;
 
@@ -21,18 +22,17 @@ public class MainProgramDatastore
     // Create the instance of the object
     private static MainProgramDatastore ourInstance = new MainProgramDatastore();
 
-    private List<Account> accountList;
-    private List<BudgetSection> budgetSectionList;
-    private List<Transaction> transactionsList;
-    private List<String> userNames;
+    ///////////////////// PROGRAM DATA ////////////////////////
 
+    private List<Account> accountList = new ArrayList<>();
+    private List<BudgetSection> budgetSectionList = new ArrayList<>();
+    private List<Transaction> transactionsList = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
+
+    ///////////////////////////////////////////////////////////
 
     private MainProgramDatastore()
     {
-        accountList = new ArrayList<>();
-        budgetSectionList = new ArrayList<>();
-        transactionsList  = new ArrayList<>();
-        userNames  = new ArrayList<>();
     }
 
     public static MainProgramDatastore getInstance()
@@ -55,9 +55,9 @@ public class MainProgramDatastore
         return budgetSectionList;
     }
 
-    public List<String> getUserNames()
+    public List<User> getUsers()
     {
-        return userNames;
+        return users;
     }
 
     public void readInAccounts(String filename)
@@ -71,7 +71,7 @@ public class MainProgramDatastore
     }
 
     // Takes Dir
-    public void readInUserNames()
+    public void readInUsers()
     {
         // Get all file names under dir
         File folder = new File(USERS_PATH);
@@ -81,8 +81,7 @@ public class MainProgramDatastore
         {
             if (listOfFiles[i].isDirectory())
             {
-                // TODO turn these prints into logging
-                userNames.add(listOfFiles[i].getName());
+                users.add(new User(listOfFiles[i].getName()));
             }
         }
     }
@@ -90,53 +89,40 @@ public class MainProgramDatastore
     // Takes Dir
     public void readInTransactions(String dirName)
     {
-		transactionsList = new ArrayList<>();
+        transactionsList.clear();
 
         // Get all file names under dir
-        File folder = new File(dirName);
-        File[] listOfFiles = folder.listFiles();
+        File file = new File(dirName);
 
-        for (int i = 0; i < listOfFiles.length; i++)
+        // TODO turn these prints into logging
+        //System.out.println("File read in: " + listOfFiles[i].getName());
+
+        // TODO have better way to point to this file in the future
+        try (CSVReader reader = new CSVReader(new FileReader(file), ',', '"', 1))
         {
-            if (listOfFiles[i].isFile())
+            //Read all rows at once
+            List<String[]> allRows = reader.readAll();
+
+            //Read CSV line by line and use the string array as you want
+            for (String[] row : allRows)
             {
-                // TODO turn these prints into logging
-                //System.out.println("File read in: " + listOfFiles[i].getName());
-
-                // TODO have better way to point to this file in the future
-                try(CSVReader reader = new CSVReader(new FileReader(listOfFiles[i]), ',' , '"' , 0))
+                // make sure row exists and matches type for section
+                if (row.length > 1)
                 {
-                    //Read all rows at once
-                    List<String[]> allRows = reader.readAll();
+                    int checkingNumber = 0;
 
-                    //Read CSV line by line and use the string array as you want
-                    for(String[] row : allRows)
+                    // Handle no checking number
+                    if (!row[3].equals(""))
                     {
-                        // make sure row exists and matches type for section
-                        if (row.length > 1)
-                        {
-                            int checkingNumber = 0;
-
-                            // Handle no checking number
-                            if (!row[3].equals(""))
-                            {
-                                checkingNumber = Integer.valueOf(row[3]);
-                            }
-
-                            transactionsList.add(new Transaction(row[0], Double.valueOf(row[1]), row[2], checkingNumber, row[4]));
-                        }
+                        checkingNumber = Integer.valueOf(row[3]);
                     }
-                }
-                catch (IOException e)
-                {
-                    // TODO logger.warn("Could not open file: " + filename);
+
+                    transactionsList.add(new Transaction(row[0], Double.valueOf(row[1]), row[2], checkingNumber, row[4]));
                 }
             }
-            else if (listOfFiles[i].isDirectory())
-            {
-                // TODO turn these prints into logging
-                System.out.println("Directory read in: " + listOfFiles[i].getName());
-            }
+        } catch (IOException e)
+        {
+            // TODO logger.warn("Could not open file: " + filename);
         }
     }
 }

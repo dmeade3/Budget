@@ -2,6 +2,7 @@ package gui;
 
 import gui.components.AccountTreeView;
 import gui.components.AdminPane;
+import gui.components.BottomFilterPane;
 import gui.components.MainCenterTabPane;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -98,7 +99,7 @@ public class RootPage
         root.setCenter(new MainCenterTabPane());
 
         root.setRight(label3);
-        root.setBottom(label4);
+        root.setBottom(new BottomFilterPane());
     }
 
     public static void reloadCenter()

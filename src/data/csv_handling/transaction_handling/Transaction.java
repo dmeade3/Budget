@@ -9,16 +9,14 @@ import java.text.NumberFormat;
 public class Transaction
 {
     private String date;
-    private double amount;
+    private Double amount;
     private String mystery;
     private int checkNumber;
     private String description;
 
-    NumberFormat formatter = new DecimalFormat("#0.00");
+    public static NumberFormat formatter = new DecimalFormat("#0.00");
 
-    public static String header = "Date,         Amount, Mystery, Check Number, Description";
-
-    public Transaction(String date, double amount, String mystery, int checkNumber, String description)
+    public Transaction(String date, Double amount, String mystery, int checkNumber, String description)
     {
         this.date = date;
         this.amount = amount;
@@ -28,12 +26,12 @@ public class Transaction
     }
 
 
-    public String getDate()
+    public String  getDate()
     {
         return date;
     }
 
-    public double getAmount()
+    public Double getAmount()
     {
         return amount;
     }
@@ -53,7 +51,7 @@ public class Transaction
         return description;
     }
 
-    public String toCsvString = "\"" +  date + "\",\"" +  formatter.format(amount) + "\",\"" + mystery + "\",\"" +  checkNumber + "\",\"" +  description + "\"\n";
+    //public String toCsvString = "\"" +  date + "\",\"" +  formatter.format(amount) + "\",\"" + mystery + "\",\"" +  checkNumber + "\",\"" +  description + "\"\n";
 
     @Override
     public String toString()

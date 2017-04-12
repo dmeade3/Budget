@@ -1,5 +1,6 @@
 package gui.components;
 
+import data.csv_handling.transaction_handling.Transaction;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -23,28 +24,26 @@ import static util.SystemInfo.USERS_PATH;
  */
 public class TransactionEditor extends GridPane
 {
-    public TransactionEditor(String oldTransaction)
+    public TransactionEditor(Transaction oldTransaction)
     {
         setPadding(new Insets(5));
         setHgap(5);
         setVgap(5);
 
-        String oldTransactionArray[] = oldTransaction.split(",");
-
         Label dateLabel = new Label("Date");
-        TextField dateField = new TextField(oldTransactionArray[0]);
+        TextField dateField = new TextField(oldTransaction.getDate());
 
         Label amountLabel = new Label("Amount");
-        TextField amountField = new TextField(oldTransactionArray[1]);
+        TextField amountField = new TextField(String.valueOf(oldTransaction.getAmount()));
 
         Label mysteryLabel = new Label("Mystery");
-        TextField mysteryField = new TextField(oldTransactionArray[2]);
+        TextField mysteryField = new TextField(String.valueOf(oldTransaction.getMystery()));
 
         Label checkNumberLabel = new Label("Check Number");
-        TextField checkNumberField = new TextField(oldTransactionArray[3]);
+        TextField checkNumberField = new TextField(String.valueOf(oldTransaction.getCheckNumber()));
 
         Label descriptionLabel = new Label("Description");
-        TextField descriptionField = new TextField(oldTransactionArray[4]);
+        TextField descriptionField = new TextField(oldTransaction.getDescription());
 
         Button saveButton = new Button("Save");
 
@@ -89,10 +88,14 @@ public class TransactionEditor extends GridPane
                 checkNumber = "";
             }
 
-            String newTransaction = "\"" + dateField.getText() + "\",\"" + amountField.getText() + "\",\"" + mysteryField.getText()
-                    + "\",\"" + checkNumber + "\",\"" + descriptionField.getText() + "\"";
+            String newTransaction = "\"" + dateField.getText() + "\",\"" +
+                                    Transaction.formatter.format(Double.valueOf(amountField.getText())) + "\",\"" +
+                                    mysteryField.getText() + "\",\"" +
+                                    checkNumber + "\",\"" +
+                                    descriptionField.getText() + "\"";
 
             StringBuilder replace = new StringBuilder();
+            String oldTransactionArray[] = oldTransaction.guiViewString().split(",");
 
             // Modify the old transaction
             for (int i = 0; i < oldTransactionArray.length; i++)
@@ -104,6 +107,7 @@ public class TransactionEditor extends GridPane
 
                 replace.append("\"" + oldTransactionArray[i] + "\"");
 
+                // Separate the items
                 if (i != oldTransactionArray.length-1)
                 {
                     replace.append(",");
@@ -111,29 +115,27 @@ public class TransactionEditor extends GridPane
             }
 
             // Get all file names under dir
-            File folder = new File(USERS_PATH + "\\" + CURRENT_USER + "\\transactions\\");
-            File[] listOfFiles = folder.listFiles();
+            File file = new File(USERS_PATH + "\\" + CURRENT_USER + "\\transactions.csv");
 
-            for (int i = 0; i < listOfFiles.length; i++)
+            try
             {
-                if (!listOfFiles[i].isDirectory())
-                {
-                    try
-                    {
-                        Path path = Paths.get(String.valueOf(listOfFiles[i]));
-                        Charset charset = StandardCharsets.UTF_8;
+                Path path = Paths.get(String.valueOf(file));
+                Charset charset = StandardCharsets.UTF_8;
 
-                        String content = new String(Files.readAllBytes(path), charset);
+                String content = new String(Files.readAllBytes(path), charset);
 
-                        content = content.replace(replace.toString(), newTransaction);
+                System.out.println("replace");
+                System.out.println(replace);
 
-                        Files.write(path, content.getBytes(charset));
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
+                content = content.replace(replace.toString(), newTransaction);
+
+                System.out.println(content);
+
+                Files.write(path, content.getBytes(charset));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
             }
         });
     }
