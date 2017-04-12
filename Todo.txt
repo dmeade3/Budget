@@ -5,7 +5,7 @@ Program:
             [ ] add user button / check if user exists / create transactions folder when user created / create transaction folder when tried to be acessed and not found
             [ ] dont read in duplicate transactions
             [ ] have a cleanup function that will after a certain event cleanup all transactions in the folder that are duplicates
-                -only clean up if the 2 duplicatesa re in different files
+                -only clean up if the 2 duplicates are in different files
                 -when taking in a new transsaction file just place it in the right folder and read in after placed
             [ ] refactor what i have to be smaller classes, especially gui, for ease of future use
             [ ] be able to add users
