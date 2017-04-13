@@ -4,9 +4,11 @@ import data.csv_handling.transaction_handling.Transaction;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import user.budget.BudgetCategory;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +26,9 @@ import static util.SystemInfo.USERS_PATH;
  */
 public class TransactionEditor extends GridPane
 {
+
+    // TODO refactor this
+
     public TransactionEditor(Transaction oldTransaction)
     {
         setPadding(new Insets(5));
@@ -42,6 +47,27 @@ public class TransactionEditor extends GridPane
         Label descriptionLabel = new Label("Description");
         TextField descriptionField = new TextField(oldTransaction.getDescription());
 
+
+        Label accountNameLabel = new Label("Account Name");
+        TextField accountNameField = new TextField(oldTransaction.getAccountName());
+
+        Label categoryLabel = new Label("Category");
+        ComboBox categoryComboBox = new ComboBox(); // TODO set the default as the read in value, the values for the should be read in by enum / user categories
+
+        // init category combobox
+        categoryComboBox.getItems().addAll(BudgetCategory.values());
+
+        try
+        {
+            categoryComboBox.getSelectionModel().select(BudgetCategory.valueOf(oldTransaction.getCategory()));
+        }
+        catch (IllegalArgumentException e)
+        {
+            categoryComboBox.getSelectionModel().select("Null");
+        }
+
+
+
         Button saveButton = new Button("Save");
 
         GridPane.setHalignment(dateLabel, HPos.RIGHT);
@@ -54,7 +80,6 @@ public class TransactionEditor extends GridPane
         GridPane.setHalignment(amountField, HPos.LEFT);
         add(amountField, 1, 1);
 
-
         GridPane.setHalignment(checkNumberLabel, HPos.RIGHT);
         add(checkNumberLabel, 0, 2);
         GridPane.setHalignment(checkNumberField, HPos.LEFT);
@@ -64,6 +89,17 @@ public class TransactionEditor extends GridPane
         add(descriptionLabel, 0, 3);
         GridPane.setHalignment(descriptionField, HPos.LEFT);
         add(descriptionField, 1, 3);
+
+        GridPane.setHalignment(accountNameLabel, HPos.RIGHT);
+        add(accountNameLabel, 0, 4);
+        GridPane.setHalignment(accountNameField, HPos.LEFT);
+        add(accountNameField, 1, 4);
+
+        GridPane.setHalignment(categoryLabel, HPos.RIGHT);
+        add(categoryLabel, 0, 5);
+        GridPane.setHalignment(categoryComboBox, HPos.LEFT);
+        add(categoryComboBox, 1, 5);
+
 
         // Save button
         GridPane.setHalignment(saveButton, HPos.RIGHT);
@@ -83,9 +119,12 @@ public class TransactionEditor extends GridPane
 
             String newTransaction = "\"" + dateField.getText() + "\",\"" +
                                     Transaction.formatter.format(Double.valueOf(amountField.getText())) + "\",\"" +
-                                    "\",\"" +
+                                    "\",\"" + // Mystery field that idk what it is yet
                                     checkNumber + "\",\"" +
-                                    descriptionField.getText() + "\"";
+                                    descriptionField.getText() + "\",\"" +
+                                    accountNameField.getText() + "\",\"" +
+                                    categoryComboBox.getSelectionModel().getSelectedItem() + "\""
+                                    ;
 
             StringBuilder replace = new StringBuilder();
             String oldTransactionArray[] = oldTransaction.guiViewString().split(",");

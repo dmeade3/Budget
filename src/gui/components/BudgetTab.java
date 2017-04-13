@@ -62,7 +62,7 @@ public class BudgetTab extends Tab
 
             stage.setOnCloseRequest(event ->
             {
-                RootPage.reloadCenter();
+                RootPage.reloadCenter(0);
             });
         });
     }

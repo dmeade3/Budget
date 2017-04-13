@@ -32,6 +32,11 @@ public class Transaction
         return category;
     }
 
+    public String getAccountName()
+    {
+        return accountName;
+    }
+
     public String  getDate()
     {
         return date;
@@ -67,6 +72,6 @@ public class Transaction
 
     public String guiViewString()
     {
-        return date + "," + formatter.format(amount) + "," + "\"\"" + "," + checkNumber + "," + description;
+        return date + "," + formatter.format(amount) + "," + "," + checkNumber + "," + description + "," + accountName + "," + category;
     }
 }

@@ -106,9 +106,13 @@ public class RootPage
         root.setBottom(new BottomFilterPane());
     }
 
-    public static void reloadCenter()
+    public static void reloadCenter(int tabIndexToSelect)
     {
-        root.setCenter(new MainCenterTabPane());
+        MainCenterTabPane mainCenterTabPane = new MainCenterTabPane();
+
+        mainCenterTabPane.getSelectionModel().select(2);
+
+        root.setCenter(mainCenterTabPane);
     }
 
     public static void reloadAll()

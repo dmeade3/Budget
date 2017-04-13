@@ -52,18 +52,22 @@ public class TransactionTable extends TableView
 
         dateColumn.setMinWidth(125);
         dateColumn.setMaxWidth(125);
+        dateColumn.setPrefWidth(125);
 
         amountColumn.setMinWidth(100);
-        amountColumn.setMaxWidth(100);
+        amountColumn.setMaxWidth(150);
+        amountColumn.setPrefWidth(100);
 
         catagoryColumn.setMinWidth(100);
-        catagoryColumn.setMaxWidth(150);
+        //catagoryColumn.setMaxWidth(150);
+        catagoryColumn.setPrefWidth(125);
 
         checkNumberColumn.setMinWidth(100);
-        checkNumberColumn.setMaxWidth(100);
+        //checkNumberColumn.setMaxWidth(100);
+        checkNumberColumn.setPrefWidth(100);
 
         descriptionColumn.setMinWidth(100);
-        descriptionColumn.setMaxWidth(2000);
+        //descriptionColumn.setMaxWidth(2000);
         descriptionColumn.setPrefWidth(1000);
 
 
@@ -87,7 +91,9 @@ public class TransactionTable extends TableView
 
             stage.setOnCloseRequest(event ->
             {
-                RootPage.reloadCenter();
+                MainProgramDatastore.getInstance().loadCurrentUser();
+
+                RootPage.reloadCenter(2); // TODO figure out a better way to do this, maybe map the tabs to their index
             });
         });
     }
