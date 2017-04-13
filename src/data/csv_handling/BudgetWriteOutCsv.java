@@ -60,13 +60,13 @@ public class BudgetWriteOutCsv
 
 	public static void main(String... args)
 	{
-		List<BudgetSection> budgetSections = new ArrayList<>();
-		budgetSections.add(new BudgetSection("Budget item 1", 123, 123));
-		budgetSections.add(new BudgetSection("Budget item 2", 123, 123));
-		budgetSections.add(new BudgetSection("Budget item 3", 123, 123));
-		budgetSections.add(new BudgetSection("Budget item 4", 123, 123));
+		/*List<BudgetSection> budgetSections = new ArrayList<>();
+		budgetSections.add(new BudgetSection("Budget item 1", 123));
+		budgetSections.add(new BudgetSection("Budget item 2", 123));
+		budgetSections.add(new BudgetSection("Budget item 3", 123));
+		budgetSections.add(new BudgetSection("Budget item 4", 123));*/
 
 
-		writeOut(budgetSections, SystemInfo.USERS_PATH + "\\" + CURRENT_USER + "\\budget.csv");
+		//writeOut(budgetSections, SystemInfo.USERS_PATH + "\\" + CURRENT_USER + "\\budget.csv");
 	}
 }

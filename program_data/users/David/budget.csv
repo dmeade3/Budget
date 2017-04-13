@@ -1,5 +1,5 @@
-name,budgetLimit,amountSpent
-"Rent / Water","1420","500.0"
-"Budget item 2","500","15.0"
-"Budget item 3","123","1230.0"
-"Budget item 4","123","50.0"
+catagory,budgetLimit
+"Rent / Water","1420"
+"Budget item 2","500"
+"Budget item 3","123"
+"Budget item 4","123"

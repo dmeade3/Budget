@@ -10,21 +10,27 @@ public class Transaction
 {
     private String date;
     private Double amount;
-    private String mystery;
     private int checkNumber;
     private String description;
+    private String accountName;
+    private String category;
 
     public static NumberFormat formatter = new DecimalFormat("#0.00");
 
-    public Transaction(String date, Double amount, String mystery, int checkNumber, String description)
+    public Transaction(String date, Double amount, int checkNumber, String description, String accountName, String category)
     {
         this.date = date;
         this.amount = amount;
-        this.mystery = mystery;
         this.checkNumber = checkNumber;
         this.description = description;
+        this.accountName = accountName;
+        this.category = category;
     }
 
+    public String getCategory()
+    {
+        return category;
+    }
 
     public String  getDate()
     {
@@ -34,11 +40,6 @@ public class Transaction
     public Double getAmount()
     {
         return amount;
-    }
-
-    public String getMystery()
-    {
-        return mystery;
     }
 
     public int getCheckNumber()
@@ -51,7 +52,7 @@ public class Transaction
         return description;
     }
 
-    //public String toCsvString = "\"" +  date + "\",\"" +  formatter.format(amount) + "\",\"" + mystery + "\",\"" +  checkNumber + "\",\"" +  description + "\"\n";
+    //public String toCsvString = "\"" +  date + "\",\"" +  formatter.format(amount) + "\",\"" + "\"\"" + "\",\"" +  checkNumber + "\",\"" +  description + "\"\n";
 
     @Override
     public String toString()
@@ -59,7 +60,6 @@ public class Transaction
         return "Transaction { " +
                 "date=" + date +
                 ", amount=" + amount +
-                ", mystery='" + mystery + '\'' +
                 ", checkNumber=" + checkNumber +
                 ", description='" + description + '\'' +
                 " }";
@@ -67,6 +67,6 @@ public class Transaction
 
     public String guiViewString()
     {
-        return date + "," + formatter.format(amount) + "," + mystery + "," + checkNumber + "," + description;
+        return date + "," + formatter.format(amount) + "," + "\"\"" + "," + checkNumber + "," + description;
     }
 }

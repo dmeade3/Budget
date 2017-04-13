@@ -20,4 +20,13 @@ public abstract class Account
         this.accountType = accountType;
     }
 
+    public AccountType getAccountType()
+    {
+        return accountType;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
 }

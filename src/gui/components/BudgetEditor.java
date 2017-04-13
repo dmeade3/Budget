@@ -71,7 +71,7 @@ public class BudgetEditor extends GridPane
         {
             try
             {
-                BudgetSection newBudgetSection = new BudgetSection(nameField.getText(), Integer.valueOf(budgetLimitField.getText()), Double.valueOf(amountSpentField.getText()));
+                BudgetSection newBudgetSection = new BudgetSection(nameField.getText(), Integer.valueOf(budgetLimitField.getText()));
 
                 // Get all file names under dir
                 File budgetFile = new File(USERS_PATH + "\\" + CURRENT_USER + "\\budget.csv");

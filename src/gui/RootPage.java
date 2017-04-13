@@ -1,5 +1,6 @@
 package gui;
 
+import data.MainProgramDatastore;
 import gui.components.AccountTreeView;
 import gui.components.AdminPane;
 import gui.components.BottomFilterPane;
@@ -95,6 +96,9 @@ public class RootPage
         Label label4 = new Label("Bottom Label");
 
         root.setTop(new AdminPane());
+
+        MainProgramDatastore.getInstance().loadCurrentUser();
+
         root.setLeft(new AccountTreeView());
         root.setCenter(new MainCenterTabPane());
 

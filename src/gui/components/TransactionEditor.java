@@ -36,9 +36,6 @@ public class TransactionEditor extends GridPane
         Label amountLabel = new Label("Amount");
         TextField amountField = new TextField(String.valueOf(oldTransaction.getAmount()));
 
-        Label mysteryLabel = new Label("Mystery");
-        TextField mysteryField = new TextField(String.valueOf(oldTransaction.getMystery()));
-
         Label checkNumberLabel = new Label("Check Number");
         TextField checkNumberField = new TextField(String.valueOf(oldTransaction.getCheckNumber()));
 
@@ -57,20 +54,16 @@ public class TransactionEditor extends GridPane
         GridPane.setHalignment(amountField, HPos.LEFT);
         add(amountField, 1, 1);
 
-        GridPane.setHalignment(mysteryLabel, HPos.RIGHT);
-        add(mysteryLabel, 0, 2);
-        GridPane.setHalignment(mysteryField, HPos.LEFT);
-        add(mysteryField, 1, 2);
 
         GridPane.setHalignment(checkNumberLabel, HPos.RIGHT);
-        add(checkNumberLabel, 0, 3);
+        add(checkNumberLabel, 0, 2);
         GridPane.setHalignment(checkNumberField, HPos.LEFT);
-        add(checkNumberField, 1, 3);
+        add(checkNumberField, 1, 2);
 
         GridPane.setHalignment(descriptionLabel, HPos.RIGHT);
-        add(descriptionLabel, 0, 4);
+        add(descriptionLabel, 0, 3);
         GridPane.setHalignment(descriptionField, HPos.LEFT);
-        add(descriptionField, 1, 4);
+        add(descriptionField, 1, 3);
 
         // Save button
         GridPane.setHalignment(saveButton, HPos.RIGHT);
@@ -90,7 +83,7 @@ public class TransactionEditor extends GridPane
 
             String newTransaction = "\"" + dateField.getText() + "\",\"" +
                                     Transaction.formatter.format(Double.valueOf(amountField.getText())) + "\",\"" +
-                                    mysteryField.getText() + "\",\"" +
+                                    "\",\"" +
                                     checkNumber + "\",\"" +
                                     descriptionField.getText() + "\"";
 

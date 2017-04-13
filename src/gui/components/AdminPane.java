@@ -7,15 +7,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
-import user.User;
-import util.SystemInfo;
+
+import static util.SystemInfo.CURRENT_USER;
 
 /**
  * Created by dcmeade on 4/10/2017.
  */
 public class AdminPane extends TitledPane
 {
-    ComboBox<String> dropDownUser;
+    private ComboBox<String> dropDownUser;
 
     public AdminPane()
     {
@@ -28,16 +28,17 @@ public class AdminPane extends TitledPane
         gridPane.setVgap(10);
 
         dropDownUser = new ComboBox<>();
-        MainProgramDatastore.getInstance().readInUsers();
 
-        for (User user : MainProgramDatastore.getInstance().getUsers())
+        for (String userName : MainProgramDatastore.getInstance().getAllUserNames())
         {
-            dropDownUser.getItems().add(user.getName());
+            dropDownUser.getItems().add(userName);
         }
 
+        // Set the default user as the first in the list for now
+        // TODO eventually save off the most recently used user and load here instead
         dropDownUser.getSelectionModel().selectFirst();
 
-        SystemInfo.CURRENT_USER = dropDownUser.getSelectionModel().getSelectedItem();
+        CURRENT_USER = dropDownUser.getSelectionModel().getSelectedItem();
 
 	    // TODO
 	    // Buttons that add users, accounts, budget sections, transactions
@@ -52,8 +53,6 @@ public class AdminPane extends TitledPane
 	    gridPane.add(addBudgetSection, 3, 0);
 	    gridPane.add(addTransaction, 4, 0);
 
-        // TODO needs listener to load new content / save if not already saved
-
         setAlignment(Pos.CENTER);
         setContent(gridPane);
         setCollapsible(false);
@@ -67,7 +66,9 @@ public class AdminPane extends TitledPane
         {
             if ((t1 != null) && (!t.equals(t1)))
             {
-                SystemInfo.CURRENT_USER = dropDownUser.getSelectionModel().getSelectedItem();
+                CURRENT_USER = dropDownUser.getSelectionModel().getSelectedItem();
+
+                MainProgramDatastore.getInstance().loadCurrentUser();
 
                 RootPage.reloadAllButAdmin();
             }

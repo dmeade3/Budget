@@ -1,4 +1,4 @@
-package test_area;
+package util.test_area;
 
 import javafx.application.Application;
 import javafx.geometry.HPos;

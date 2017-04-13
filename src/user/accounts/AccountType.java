@@ -12,7 +12,7 @@ public enum AccountType
     RETIREMENT("Retirement")      // Eventually might split up to 401k, Roth ira, ira, stock
     ;
 
-    private String name;
+    private final String name;
 
     AccountType(String name)
     {

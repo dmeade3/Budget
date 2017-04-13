@@ -12,6 +12,17 @@ public class BudgetSection
 	private int budgetLimit;
 	private double amountSpent;
 
+	public BudgetSection(String name, int budgetLimit)
+	{
+		this.name = name;
+		this.budgetLimit = budgetLimit;
+	}
+
+	public void setAmountSpent(double amountSpent)
+	{
+		this.amountSpent = amountSpent;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -30,13 +41,6 @@ public class BudgetSection
 	public static String csvHeader()
 	{
 		return "name,budgetLimit,amountSpent\n";
-	}
-
-	public BudgetSection(String name, int budgetLimit, double amountSpent)
-	{
-		this.name = name;
-		this.budgetLimit = budgetLimit;
-		this.amountSpent = amountSpent;
 	}
 
 	public String getName()

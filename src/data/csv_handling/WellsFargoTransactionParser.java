@@ -49,7 +49,7 @@ public class WellsFargoTransactionParser
                         checkNumber = Integer.parseInt(row[3]);
                     }
 
-                    transactions.add(new Transaction((simpleDateFormat.format(new Date(row[0]))), Double.valueOf(row[1]), row[2], checkNumber, row[4]));
+                    transactions.add(new Transaction((simpleDateFormat.format(new Date(row[0]))), Double.valueOf(row[1]), checkNumber, row[4], row[5], row[6]));
                 }
             }
         }
