@@ -110,7 +110,7 @@ public class RootPage
     {
         MainCenterTabPane mainCenterTabPane = new MainCenterTabPane();
 
-        mainCenterTabPane.getSelectionModel().select(2);
+        mainCenterTabPane.getSelectionModel().select(tabIndexToSelect);
 
         root.setCenter(mainCenterTabPane);
     }

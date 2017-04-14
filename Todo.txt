@@ -7,8 +7,9 @@ Program:
                     -when reading a new file in compare against what you already have
                     -once in main transaction file its assumed to be correct
 
-
+    [ ] when reading in csv dont use literal indexes like 1, 2, 3, 4.... use the row name, budgets, transactions, accounts
     [ ] format transaction table better columns
+    [ ] account name should be a column in the transaction table
     [ ] when reading in transactions, dont read in the mystery line
         -transaction should not hae fields that are like this / un-needed
     [ ] in transaction editor there should be a drop down for categories
@@ -23,11 +24,9 @@ Program:
         -only clean up if the 2 duplicates are in different files, must be in different files, same date, same amount, same check number
         -when taking in a new transaction file just place it in the right folder and read in after placed
 
-
     -be able to delete transaction from transaction tab
         -right brings up a small choice box to duplicate or delete
 
-    -transaction date should actually be a date
     -in budget amount spent shouldn't be adjustable in gui, its calculated based on the selected time
     -when transactions read in they need to have info added to them
         -needs a place for the account

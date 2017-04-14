@@ -5,6 +5,8 @@ package user.budget;
  */
 public enum BudgetCategory
 {
+    INCOME("Income"),
+    BONUS("BONUS"),
     ELECTRICITY("Electricity"),
     GASOLINE("Gasoline"),
     NATURAL_GAS("Natural Gas"),

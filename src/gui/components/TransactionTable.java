@@ -44,7 +44,7 @@ public class TransactionTable extends TableView
     private void initializeColumns()
     {
         // Initialize the person table with the two columns.
-        dateColumn.setCellValueFactory(       cellData -> new SimpleStringProperty(cellData.getValue().getDate()));
+        dateColumn.setCellValueFactory(       cellData -> new SimpleStringProperty(Transaction.dateFormat.format(cellData.getValue().getDate())));
         amountColumn.setCellValueFactory(     cellData -> new SimpleDoubleProperty(cellData.getValue().getAmount()).asObject());
         checkNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getCheckNumber()).asObject());
         catagoryColumn.setCellValueFactory(   cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
@@ -58,12 +58,12 @@ public class TransactionTable extends TableView
         amountColumn.setMaxWidth(150);
         amountColumn.setPrefWidth(100);
 
-        catagoryColumn.setMinWidth(100);
-        //catagoryColumn.setMaxWidth(150);
-        catagoryColumn.setPrefWidth(125);
+        catagoryColumn.setMinWidth(200);
+        catagoryColumn.setMaxWidth(200);
+        catagoryColumn.setPrefWidth(200);
 
         checkNumberColumn.setMinWidth(100);
-        //checkNumberColumn.setMaxWidth(100);
+        checkNumberColumn.setMaxWidth(100);
         checkNumberColumn.setPrefWidth(100);
 
         descriptionColumn.setMinWidth(100);
@@ -75,7 +75,6 @@ public class TransactionTable extends TableView
 
         getColumns().setAll(dateColumn, amountColumn, catagoryColumn, checkNumberColumn, descriptionColumn);
     }
-
 
     private void addListeners()
     {

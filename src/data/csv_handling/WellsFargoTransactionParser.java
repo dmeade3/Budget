@@ -7,10 +7,11 @@ import org.apache.log4j.Logger;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static data.MainProgramDatastore.getTransactionColumnIndex;
 
 /**
  * Created by dcmeade on 4/7/2017.
@@ -35,8 +36,6 @@ public class WellsFargoTransactionParser
             //Read all rows at once
             List<String[]> allRows = reader.readAll();
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-
             //Read CSV line by line and use the string array as you want
             for(String[] row : allRows)
             {
@@ -44,12 +43,17 @@ public class WellsFargoTransactionParser
                 {
                     int checkNumber = 0;
 
-                    if (!row[3].equals(""))
+                    if (!row[getTransactionColumnIndex("checkNumber")].equals(""))
                     {
-                        checkNumber = Integer.parseInt(row[3]);
+                        checkNumber = Integer.parseInt(row[2]);
                     }
 
-                    transactions.add(new Transaction((simpleDateFormat.format(new Date(row[0]))), Double.valueOf(row[1]), checkNumber, row[4], row[5], row[6]));
+                    transactions.add(new Transaction(new Date(row[getTransactionColumnIndex("name")]),
+                            Double.valueOf(row[getTransactionColumnIndex("amount")]),
+                            checkNumber,
+                            row[getTransactionColumnIndex("description")],
+                            "",
+                            "")); // TODO this is going to give nulls
                 }
             }
         }

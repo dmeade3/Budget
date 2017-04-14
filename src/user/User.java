@@ -11,8 +11,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import static data.MainProgramDatastore.getTransactionColumnIndex;
 import static util.SystemInfo.CURRENT_USER;
 import static util.SystemInfo.USERS_PATH;
 
@@ -85,12 +87,18 @@ public class User
 					int checkingNumber = 0;
 
 					// Handle no checking number
-					if (!row[3].equals(""))
+					if (!row[getTransactionColumnIndex("checkNumber")].equals(""))
 					{
-						checkingNumber = Integer.valueOf(row[3]);
+						checkingNumber = Integer.valueOf(row[getTransactionColumnIndex("checkNumber")]);
 					}
 
-					transactions.add(new Transaction(row[0], Double.valueOf(row[1]), checkingNumber, row[4], row[5], row[6]));
+					transactions.add(new Transaction(
+							new Date(row[getTransactionColumnIndex("date")]),
+							Double.valueOf(row[getTransactionColumnIndex("amount")]),
+							checkingNumber,
+							row[getTransactionColumnIndex("description")],
+							row[getTransactionColumnIndex("account")],
+							row[getTransactionColumnIndex("category")]));
 				}
 			}
 		} catch (IOException e)

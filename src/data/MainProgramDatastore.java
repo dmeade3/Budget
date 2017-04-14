@@ -1,8 +1,11 @@
 package data;
 
+import com.opencsv.CSVReader;
 import user.User;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +35,46 @@ public class MainProgramDatastore
         return ourInstance;
     }
 
+    //////////////////////////////////////////////////////////
+
+    private static String[] getTransactionHeader()
+    {
+        File file = new File(USERS_PATH + "\\" + CURRENT_USER + "\\transactions.csv");
+
+        try (CSVReader reader = new CSVReader(new FileReader(file), ',', '"', 0))
+        {
+            //Read all rows at once
+            List<String[]> allRows = reader.readAll();
+
+            return allRows.get(0);
+        }
+        catch (IOException e)
+        {
+            System.out.println("Could not open file: " + file.getAbsolutePath()); //logger.warn("Could not open file: " + filename);
+        }
+
+        return null;
+    }
+
+    public static int getTransactionColumnIndex(String columnName)
+    {
+        String[] header = getTransactionHeader();
+
+        for (int i = 0; i < header.length; i++)
+        {
+            //System.out.println(header[i]);
+
+            if (header[i].equals(columnName))
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
     public void loadCurrentUser()
     {
-
-
         loadedUser = new User(CURRENT_USER);
     }
 

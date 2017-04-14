@@ -1,23 +1,27 @@
 package data.csv_handling.transaction_handling;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by dcmeade on 4/7/2017.
  */
 public class Transaction
 {
-    private String date;
+    private Date date;
     private Double amount;
     private int checkNumber;
     private String description;
     private String accountName;
     private String category;
 
+    public static DateFormat dateFormat =  new SimpleDateFormat("MM/dd/yyyy");
     public static NumberFormat formatter = new DecimalFormat("#0.00");
 
-    public Transaction(String date, Double amount, int checkNumber, String description, String accountName, String category)
+    public Transaction(Date date, Double amount, int checkNumber, String description, String accountName, String category)
     {
         this.date = date;
         this.amount = amount;
@@ -37,7 +41,7 @@ public class Transaction
         return accountName;
     }
 
-    public String  getDate()
+    public Date  getDate()
     {
         return date;
     }
