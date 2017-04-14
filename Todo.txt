@@ -7,9 +7,14 @@ Program:
                     -when reading a new file in compare against what you already have
                     -once in main transaction file its assumed to be correct
 
-    [ ] when reading in csv dont use literal indexes like 1, 2, 3, 4.... use the row name, budgets, transactions, accounts
-    [ ] format transaction table better columns
-    [ ] account name should be a column in the transaction table
+    [ ] inside the login pane
+        -handle right pass
+        -wrong pass
+            -ask again for the password for 3 times then exit like cancel, oportunity to try again after trying to change user again
+        -cancel
+            -should not load new useror chang ethe user in combo box
+    [ ] replace all system.out with logger statements
+    [ ] when reading in csv dont use literal indexes like 1, 2, 3, 4.... use the row name, budgets, transactions, and accounts
     [ ] when reading in transactions, dont read in the mystery line
         -transaction should not hae fields that are like this / un-needed
     [ ] in transaction editor there should be a drop down for categories
@@ -19,19 +24,18 @@ Program:
     [ ] format transaction table so it always fills up whole table
     [ ] add user button / check if user exists / create transactions folder when user created / create transaction folder when tried to be accessed and not found
     [ ] have a user csv with user info in it
+        -append to when new user created / update as needed
     [ ] don't read in duplicate transactions
     [ ] have a cleanup function that will after a transaction read in cleanup all transactions in the folder that are duplicates
         -only clean up if the 2 duplicates are in different files, must be in different files, same date, same amount, same check number
         -when taking in a new transaction file just place it in the right folder and read in after placed
 
     -be able to delete transaction from transaction tab
-        -right brings up a small choice box to duplicate or delete
+        -have a delete button right next to the save
+            -delete should bring up a separate gui ask are you sure?
 
-    -in budget amount spent shouldn't be adjustable in gui, its calculated based on the selected time
     -when transactions read in they need to have info added to them
-        -needs a place for the account
-        -need to add a place for a category
-            -category empty unless previous mapping exists
+        -category empty unless previous mapping exists
 
     -budget tab a budget for the whole account
         -within a time range in the bottom panel  1 week / 1 month / 2 / 3 / 6
@@ -44,13 +48,15 @@ Program:
             -this is going to be its own thing here
             -encrypt decrypt package
 
-    -the right side should be a summary of what is in the middle if the gui / unless the
+    -the right side should be a summary of what is in the middle if the gui / unless i just want to have it all in the summary tab
     -make header in transactions the table header and not just a line
     -on close before calling reload should save off any visual settings so you don't have to re-click settings
     -test with completely blank user and make sure doesnt fail
     -when reading in transactions don't read in duplicates
     -eventually take out all the creation dates
         -if ever going public with this will need to wipe all date info on it
+        -github has the dates too
+            -would need to delete the repo and remake it with files with fresh dates
     -be able to add budget sections
     -be able to add transactions
     -be able to add users

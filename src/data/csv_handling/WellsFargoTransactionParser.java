@@ -1,17 +1,6 @@
 package data.csv_handling;
 
-import com.opencsv.CSVReader;
-import data.csv_handling.transaction_handling.Transaction;
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import static data.MainProgramDatastore.getTransactionColumnIndex;
 
 /**
  * Created by dcmeade on 4/7/2017.
@@ -20,7 +9,14 @@ public class WellsFargoTransactionParser
 {
     private static final Logger logger = Logger.getLogger(WellsFargoTransactionParser.class.getName());
 
-    private String filename;
+
+    /*
+    *
+    * TODO Depricated
+    *
+    * */
+
+    /*private String filename;
 
     public WellsFargoTransactionParser(String filename)
     {
@@ -78,5 +74,5 @@ public class WellsFargoTransactionParser
         {
             System.out.println(transaction);
         }
-    }
+    }*/
 }

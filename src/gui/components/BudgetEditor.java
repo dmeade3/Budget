@@ -41,10 +41,6 @@ public class BudgetEditor extends GridPane
         Label budgetLimitLabel = new Label("Budget Limit");
         TextField budgetLimitField = new TextField(String.valueOf(budgetWithProgressBar.getBudgetSection().getBudgetSectionLimit()));
 
-        Label amountSpentLabel = new Label("Amount Spent");
-        TextField amountSpentField = new TextField(String.valueOf(budgetWithProgressBar.getBudgetSection().getAmountSpent()));
-
-
         Button saveButton = new Button("Save");
 
         GridPane.setHalignment(nameLabel, HPos.RIGHT);
@@ -57,10 +53,6 @@ public class BudgetEditor extends GridPane
         GridPane.setHalignment(budgetLimitField, HPos.LEFT);
         add(budgetLimitField, 1, 1);
 
-        GridPane.setHalignment(amountSpentLabel, HPos.RIGHT);
-        add(amountSpentLabel, 0, 2);
-        GridPane.setHalignment(amountSpentField, HPos.LEFT);
-        add(amountSpentField, 1, 2);
 
         // Save button
         GridPane.setHalignment(saveButton, HPos.RIGHT);

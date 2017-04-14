@@ -22,8 +22,9 @@ public class TransactionTable extends TableView
     private static ObservableList<Transaction> transactions = FXCollections.observableArrayList();
     private TableColumn<Transaction, String> dateColumn = new TableColumn<>("Date");
     private TableColumn<Transaction, Double> amountColumn = new TableColumn<>("Amount");
+    private TableColumn<Transaction, String> accountColumn = new TableColumn<>("Account");
     private TableColumn<Transaction, Integer> checkNumberColumn = new TableColumn<>("Check #");
-    private TableColumn<Transaction, String> catagoryColumn = new TableColumn<>("Category");
+    private TableColumn<Transaction, String> categoryColumn = new TableColumn<>("Category");
     private TableColumn<Transaction, String> descriptionColumn = new TableColumn<>("Description");
 
     public TransactionTable()
@@ -46,8 +47,9 @@ public class TransactionTable extends TableView
         // Initialize the person table with the two columns.
         dateColumn.setCellValueFactory(       cellData -> new SimpleStringProperty(Transaction.dateFormat.format(cellData.getValue().getDate())));
         amountColumn.setCellValueFactory(     cellData -> new SimpleDoubleProperty(cellData.getValue().getAmount()).asObject());
+        accountColumn.setCellValueFactory(    cellData -> new SimpleStringProperty(cellData.getValue().getAccountName()));
         checkNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getCheckNumber()).asObject());
-        catagoryColumn.setCellValueFactory(   cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
+        categoryColumn.setCellValueFactory(   cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
         descriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
 
         dateColumn.setMinWidth(125);
@@ -58,22 +60,26 @@ public class TransactionTable extends TableView
         amountColumn.setMaxWidth(150);
         amountColumn.setPrefWidth(100);
 
-        catagoryColumn.setMinWidth(200);
-        catagoryColumn.setMaxWidth(200);
-        catagoryColumn.setPrefWidth(200);
+        accountColumn.setMinWidth(100);
+        accountColumn.setMaxWidth(150);
+        accountColumn.setPrefWidth(100);
+
+        categoryColumn.setMinWidth(200);
+        categoryColumn.setMaxWidth(200);
+        categoryColumn.setPrefWidth(200);
 
         checkNumberColumn.setMinWidth(100);
         checkNumberColumn.setMaxWidth(100);
         checkNumberColumn.setPrefWidth(100);
 
         descriptionColumn.setMinWidth(100);
-        //descriptionColumn.setMaxWidth(2000);
+        descriptionColumn.setMaxWidth(2000);
         descriptionColumn.setPrefWidth(1000);
 
 
         setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        getColumns().setAll(dateColumn, amountColumn, catagoryColumn, checkNumberColumn, descriptionColumn);
+        getColumns().setAll(dateColumn, amountColumn, accountColumn, categoryColumn, checkNumberColumn, descriptionColumn);
     }
 
     private void addListeners()

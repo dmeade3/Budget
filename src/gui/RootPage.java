@@ -7,7 +7,6 @@ import gui.components.BottomFilterPane;
 import gui.components.MainCenterTabPane;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
@@ -92,17 +91,17 @@ public class RootPage
 
     private static void loadSceneRoot()
     {
-        Label label3 = new Label("Right Label");
-        Label label4 = new Label("Bottom Label");
-
         root.setTop(new AdminPane());
 
+        // Load the user after admin panel because loading the admin panel will pick the default/last user
         MainProgramDatastore.getInstance().loadCurrentUser();
 
         root.setLeft(new AccountTreeView());
+
         root.setCenter(new MainCenterTabPane());
 
-        root.setRight(label3);
+        //root.setRight(label3);
+
         root.setBottom(new BottomFilterPane());
     }
 

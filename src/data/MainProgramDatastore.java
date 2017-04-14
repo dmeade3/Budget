@@ -1,6 +1,7 @@
 package data;
 
 import com.opencsv.CSVReader;
+import org.apache.log4j.Logger;
 import user.User;
 
 import java.io.File;
@@ -17,6 +18,8 @@ import static util.SystemInfo.USERS_PATH;
  */
 public class MainProgramDatastore
 {
+    private static Logger logger = Logger.getLogger(MainProgramDatastore.class);
+
     // Create the instance of the object
     private static MainProgramDatastore ourInstance = new MainProgramDatastore();
 
@@ -50,7 +53,7 @@ public class MainProgramDatastore
         }
         catch (IOException e)
         {
-            System.out.println("Could not open file: " + file.getAbsolutePath()); //logger.warn("Could not open file: " + filename);
+            logger.warn("Could not open file: " + file.getAbsolutePath());
         }
 
         return null;
@@ -60,13 +63,14 @@ public class MainProgramDatastore
     {
         String[] header = getTransactionHeader();
 
-        for (int i = 0; i < header.length; i++)
+        if (header != null)
         {
-            //System.out.println(header[i]);
-
-            if (header[i].equals(columnName))
+            for (int i = 0; i < header.length; i++)
             {
-                return i;
+                if (header[i].equals(columnName))
+                {
+                    return i;
+                }
             }
         }
 
