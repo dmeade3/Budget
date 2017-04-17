@@ -1,6 +1,7 @@
 package gui;
 
 import data.MainProgramDatastore;
+import data.csv_handling.transaction_handling.TransactionParser;
 import gui.components.AccountTreeView;
 import gui.components.AdminPane;
 import gui.components.BottomFilterPane;
@@ -80,21 +81,10 @@ public class RootPage
                 for (File file:db.getFiles())
                 {
 
-
-	                // TODO call the transaction handler with the filepath
-	                //  -the handler based on user decisions should call a certain parser, ex: wells fargo: should be a gridpane with buttons
-
-
 	                filePath = file.getAbsolutePath();
-                    System.out.println("Received: " +filePath);
+                    System.out.println("Received: " +filePath); // make logging
 
-
-
-
-
-
-
-
+                    TransactionParser.parseTransactionFile(filePath);
                 }
             }
 
