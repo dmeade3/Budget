@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static util.SystemInfo.CURRENT_USER;
@@ -27,6 +29,9 @@ public class MainProgramDatastore
 
     private User loadedUser;
 
+    private Date startDate = getInitialStartDate();
+    private Date endDate = new Date();
+
     ///////////////////////////////////////////////////////////
 
     private MainProgramDatastore()
@@ -38,11 +43,35 @@ public class MainProgramDatastore
         return ourInstance;
     }
 
+
+
     //////////////////////////////////////////////////////////
 
-    private static String[] getTransactionHeader()
+
+    public Date getStartDate()
     {
-        File file = new File(USERS_PATH + "\\" + CURRENT_USER + "\\transactions.csv");
+        return startDate;
+    }
+
+    public Date getEndDate()
+    {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate)
+    {
+        this.endDate = endDate;
+    }
+
+    public void setStartDate(Date startDate)
+    {
+        this.startDate = startDate;
+    }
+
+    // todo Make these functions more general
+    private static String[] getHeader(String filename)
+    {
+        File file = new File(USERS_PATH + "\\" + CURRENT_USER + "\\" + filename);
 
         try (CSVReader reader = new CSVReader(new FileReader(file), ',', '"', 0))
         {
@@ -59,9 +88,9 @@ public class MainProgramDatastore
         return null;
     }
 
-    public static int getTransactionColumnIndex(String columnName)
+    public static int getColumnIndex(String columnName, String filename)
     {
-        String[] header = getTransactionHeader();
+        String[] header = getHeader(filename);
 
         if (header != null)
         {
@@ -107,5 +136,15 @@ public class MainProgramDatastore
         }
 
         return userNames;
+    }
+
+    private Date getInitialStartDate()
+    {
+        Calendar cal = Calendar.getInstance();
+
+        // todo Eventually make this a config option
+        cal.add(Calendar.MONTH, -1);
+
+        return cal.getTime();
     }
 }

@@ -41,7 +41,7 @@ public class WellsFargoTransactionParser
 
                     if (!row[getTransactionColumnIndex("checkNumber")].equals(""))
                     {
-                        checkNumber = Integer.parseInt(row[2]);
+                        checkNumber = Integer.parseInt(getColumnIndex("namekjg", "accounts.csv"));
                     }
 
                     transactions.add(new Transaction(new Date(row[getTransactionColumnIndex("name")]),

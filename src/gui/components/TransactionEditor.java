@@ -21,7 +21,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 
-import static data.MainProgramDatastore.getTransactionColumnIndex;
 import static util.SystemInfo.CURRENT_USER;
 import static util.SystemInfo.USERS_PATH;
 
@@ -169,14 +168,14 @@ public class TransactionEditor extends GridPane
             String oldTransactionArray[] = oldTransaction.guiViewString().split(",");
 
             // Format the date
-            oldTransactionArray[getTransactionColumnIndex("name")] = Transaction.dateFormat.format(new Date(oldTransactionArray[getTransactionColumnIndex("name")]));
+            oldTransactionArray[MainProgramDatastore.getColumnIndex("name", "transactions.csv")] = Transaction.dateFormat.format(new Date(oldTransactionArray[MainProgramDatastore.getColumnIndex("name", "transactions.csv")]));
 
             // Modify the old transaction
             for (int i = 0; i < oldTransactionArray.length; i++)
             {
-                if ((i == getTransactionColumnIndex("checkNumber")) && (oldTransactionArray[getTransactionColumnIndex("checkNumber")].equals("0")))
+                if ((i == MainProgramDatastore.getColumnIndex("checkNumber", "transactions.csv")) && (oldTransactionArray[MainProgramDatastore.getColumnIndex("checkNumber", "transactions.csv")].equals("0")))
                 {
-                    oldTransactionArray[getTransactionColumnIndex("checkNumber")] = "";
+                    oldTransactionArray[MainProgramDatastore.getColumnIndex("checkNumber", "transactions.csv")] = "";
                 }
 
                 replace.append("\"" + oldTransactionArray[i] + "\"");

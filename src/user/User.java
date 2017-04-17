@@ -1,6 +1,7 @@
 package user;
 
 import com.opencsv.CSVReader;
+import data.MainProgramDatastore;
 import data.csv_handling.transaction_handling.Transaction;
 import gui.components.BudgetWithProgressBar;
 import org.apache.log4j.Logger;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static data.MainProgramDatastore.getTransactionColumnIndex;
+import static data.MainProgramDatastore.getColumnIndex;
 import static util.SystemInfo.CURRENT_USER;
 import static util.SystemInfo.USERS_PATH;
 
@@ -58,7 +59,27 @@ public class User
 
 	public List<Transaction> getTransactions()
 	{
-		return transactions;
+		List<Transaction> filteredTransactions;
+
+		filteredTransactions = dateFilterTransactions(MainProgramDatastore.getInstance().getStartDate(), MainProgramDatastore.getInstance().getEndDate(), transactions);
+
+		return filteredTransactions;
+	}
+
+	private List dateFilterTransactions(Date startDate, Date endDate, List<Transaction> inTransactions)
+	{
+		ArrayList filteredTransactions = new ArrayList();
+
+		for (Transaction transaction : inTransactions)
+		{
+			if ((startDate.getTime() <= transaction.getDate().getTime()) &&
+				(endDate.getTime() >= transaction.getDate().getTime()))
+			{
+				filteredTransactions.add(transaction);
+			}
+		}
+
+		return filteredTransactions;
 	}
 
 	public List<BudgetWithProgressBar> getBudgets()
@@ -87,18 +108,18 @@ public class User
 					int checkingNumber = 0;
 
 					// Handle no checking number
-					if (!row[getTransactionColumnIndex("checkNumber")].equals(""))
+					if (!row[getColumnIndex("checkNumber", "transactions.csv")].equals(""))
 					{
-						checkingNumber = Integer.valueOf(row[getTransactionColumnIndex("checkNumber")]);
+						checkingNumber = Integer.valueOf(row[getColumnIndex("checkNumber", "transactions.csv")]);
 					}
 
 					transactions.add(new Transaction(
-							new Date(row[getTransactionColumnIndex("date")]),
-							Double.valueOf(row[getTransactionColumnIndex("amount")]),
+							new Date(row[getColumnIndex("date", "transactions.csv")]),
+							Double.valueOf(row[getColumnIndex("amount", "transactions.csv")]),
 							checkingNumber,
-							row[getTransactionColumnIndex("description")],
-							row[getTransactionColumnIndex("account")],
-							row[getTransactionColumnIndex("category")]));
+							row[getColumnIndex("description", "transactions.csv")],
+							row[getColumnIndex("account", "transactions.csv")],
+							row[getColumnIndex("category", "transactions.csv")]));
 				}
 			}
 		} catch (IOException e)
@@ -120,26 +141,26 @@ public class User
 				// make sure row exists and matches type for section
 				if (row.length > 1)
 				{
-					switch(AccountType.valueOf(row[1].toUpperCase()))
+					switch(AccountType.valueOf(row[getColumnIndex("type", "accounts.csv")].toUpperCase()))
 					{
 						case CHECKING:
-							accounts.add(new CheckingAccount(row[0]));
+							accounts.add(new CheckingAccount(row[getColumnIndex("name", "accounts.csv")]));
 							break;
 
 						case BROKERAGE:
-							accounts.add(new BrokerageAccount(row[0]));
+							accounts.add(new BrokerageAccount(row[getColumnIndex("name", "accounts.csv")]));
 							break;
 
 						case CREDIT:
-							accounts.add(new CreditAccount(row[0]));
+							accounts.add(new CreditAccount(row[getColumnIndex("name", "accounts.csv")]));
 							break;
 
 						case RETIREMENT:
-							accounts.add(new RetirementAccount(row[0]));
+							accounts.add(new RetirementAccount(row[getColumnIndex("name", "accounts.csv")]));
 							break;
 
 						case SAVINGS:
-							accounts.add(new SavingsAccount(row[0]));
+							accounts.add(new SavingsAccount(row[getColumnIndex("name", "accounts.csv")]));
 							break;
 
 						default:
@@ -167,13 +188,27 @@ public class User
 				// make sure row exists
 				if (row.length > 1)
 				{
-					budgets.add(new BudgetWithProgressBar(new BudgetSection(row[0], Integer.valueOf(row[1]))));
+					budgets.add(new BudgetWithProgressBar(new BudgetSection(row[getColumnIndex("category", "budget.csv")], Integer.valueOf(row[getColumnIndex("budgetLimit", "budget.csv")]))));
 				}
 			}
 		}
 		catch (IOException e)
 		{
-			logger.warn("Could not open budget.csv file");
+			logger.warn("Could not open budget.csv file, now creating a new budget.csv");
+
+			File file = new File(USERS_PATH + "\\" + CURRENT_USER + "\\budget.csv");
+
+			if (!file.exists())
+			{
+				try
+				{
+					file.createNewFile();
+				}
+				catch (IOException e1)
+				{
+					logger.warn("New budget.csv was not able to be created: " + e.getMessage());
+				}
+			}
 		}
 	}
 }

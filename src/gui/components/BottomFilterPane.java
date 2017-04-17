@@ -1,11 +1,16 @@
 package gui.components;
 
+import data.MainProgramDatastore;
+import gui.RootPage;
 import javafx.scene.control.DateCell;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
+import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 /**
  * Created by dcmeade on 4/12/2017.
@@ -34,10 +39,10 @@ public class BottomFilterPane extends GridPane
             getColumnConstraints().add(col);
         }
 
-        LabeledDatePicker startLabeledDatePicker = new LabeledDatePicker(null, "Start Date");
+        LabeledDatePicker startLabeledDatePicker = new LabeledDatePicker(new Date(MainProgramDatastore.getInstance().getStartDate().getTime()).toLocalDate(), "Start Date");
         add(startLabeledDatePicker, 4, 0);
 
-        LabeledDatePicker endLabeledDatePicker = new LabeledDatePicker(LocalDate.now(), "End Date");
+        LabeledDatePicker endLabeledDatePicker = new LabeledDatePicker(new Date(MainProgramDatastore.getInstance().getEndDate().getTime()).toLocalDate(), "End Date");
         add(endLabeledDatePicker, 6, 0);
 
 
@@ -45,8 +50,6 @@ public class BottomFilterPane extends GridPane
 
         startLabeledDatePicker.getDatePicker().setDayCellFactory((p) -> new DateCell()
         {
-            //LocalDate minDate = LocalDate.of(2014, Month.JANUARY, 1);
-
             LocalDate maxDate;
 
             @Override
@@ -57,6 +60,13 @@ public class BottomFilterPane extends GridPane
                 maxDate = endLabeledDatePicker.getDatePicker().getValue();
 
                 setDisable(ld.isAfter(maxDate));
+
+
+                Instant instant = Instant.from(startLabeledDatePicker.getDatePicker().getValue().atStartOfDay(ZoneId.systemDefault()));
+
+                MainProgramDatastore.getInstance().setStartDate(Date.from(instant));
+
+                RootPage.reloadCenter(2);
             }
         });
 
@@ -79,14 +89,14 @@ public class BottomFilterPane extends GridPane
                 }
 
                 setDisable(ld.isAfter(LocalDate.now()) || ld.isBefore(minDate));
+
+
+                Instant instant = Instant.from(endLabeledDatePicker.getDatePicker().getValue().atStartOfDay(ZoneId.systemDefault()));
+
+                MainProgramDatastore.getInstance().setEndDate(Date.from(instant));
+
+                RootPage.reloadCenter(2);
             }
         });
-
-
-
-
-        // TODO restrict start date to be before the end date
-
-
     }
 }

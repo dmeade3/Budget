@@ -2,10 +2,11 @@ Program:
     Current:
         Should be the top 3 things working on currently
             [ ] structure the handling of transactions like a database
-                -keep all transactions in one file
-                    -when reading a new file in compare against what you already have
-                    -once in main transaction file its assumed to be correct
+                -when reading a new file in compare against what you already have
+                -once in main transaction file its assumed to be correct
+                    -put this in a comment near the read in function
 
+    [ ] make a function to get the current tab index and use instead of the #'s for realoading
     [ ] inside the login pane
         -handle right pass
         -wrong pass
@@ -13,7 +14,6 @@ Program:
         -cancel
             -should not load new useror chang ethe user in combo box
     [ ] replace all system.out with logger statements
-    [ ] when reading in csv dont use literal indexes like 1, 2, 3, 4.... use the row name, budgets, transactions, and accounts
     [ ] when reading in transactions, dont read in the mystery line
         -must be , same date, same amount, same check number to discard
         -transaction should not hae fields that are like this / un-needed
@@ -22,9 +22,9 @@ Program:
         -later implement the option to add your own category
     [ ] make in main program data a list of account that are selected on the tree, will be destroyed and filled after every account tree change
     [ ] format transaction table so it always fills up whole table
-    [ ] add user button / check if user exists / create transactions folder when user created / create transaction folder when tried to be accessed and not found
-    [ ] have a user csv with user info in it
-        -append to when new user created / update as needed
+    [ ] when reloading anything, keep the CURRENT_USER the same
+    [ ] when opening a data csv file if it doesnt exist then create a new one
+        -maybe create all new csv files on user creation, include the headers
 
     -be able to delete transaction from transaction tab
         -have a delete button right next to the save
@@ -38,6 +38,7 @@ Program:
             -make those time ranges an enum that hold a day count
 
     -input rules on all text fields / try catches and error messages
+        -this really means test stupid inputs and make sure the program doesnt let it go through / breaks
     -make user password protected as an option
         -make users read into an array or user objects and mapped to a password / if pass blank then no password
         -encrypt the passwords
@@ -49,13 +50,9 @@ Program:
     -on close before calling reload should save off any visual settings so you don't have to re-click settings
     -test with completely blank user and make sure doesnt fail
     -when reading in transactions don't read in duplicates
-    -eventually take out all the creation dates
-        -if ever going public with this will need to wipe all date info on it
-        -github has the dates too
-            -would need to delete the repo and remake it with files with fresh dates
+
     -be able to add budget sections
     -be able to add transactions
-    -be able to add users
     -be able to add accounts
 
 
@@ -63,7 +60,6 @@ Program:
         Budget Program:
             Gui:
                 Bottom:
-                    -bottom portion could be used to filter out results
                     -changing of tabs should trigger this panel to change
                         -might have different types of filters for different tabs
 
@@ -108,14 +104,22 @@ Program:
     -store balance info
         -admin section to set current balance when first setting up program
 
+    Junit tests for behavior that wont change like th logic:
+        [ ] Data
+        [ ] Gui
+        [ ] Security
+        [ ] User
+        [ ] Util
+
     Functionality:
+        -eventually start making junit test cases for this stuff
         -take transactions from mint
         -will need to format read in transactions
         -investment tracking
         -should say when account was last updated in summary tab
             -will need to add this to the account csv
             -make file find and replace util
-                -make very general csv finad and replace for whole rows / individual items
+                -make very general csv find and replace for whole rows / individual items
         -help predict future financial status
         -when account clicked on it should update the middle scrollpane with that account info
         -bottom section should be able to switch the view between a 1 week / 1 month / 2 / 3 / 6 / year / all
@@ -125,6 +129,11 @@ Program:
             -be for tabs budget, summary
                 -future should have a separate time picker for date intervals into the future
                 -summary should default be 1 week back
+
+        -eventually take out all the creation dates
+            -if ever going public with this will need to wipe all date info on it
+            -github has the dates too
+                -would need to delete the repo and remake it with files with fresh dates
 
     References:
         css:
