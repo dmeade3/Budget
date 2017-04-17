@@ -68,7 +68,6 @@ public class AdminPane extends TitledPane
             {
                 new LoginDialog();
 
-
                 CURRENT_USER = dropDownUser.getSelectionModel().getSelectedItem();
 
                 MainProgramDatastore.getInstance().loadCurrentUser();
