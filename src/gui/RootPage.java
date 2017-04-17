@@ -79,8 +79,22 @@ public class RootPage
 
                 for (File file:db.getFiles())
                 {
-                    filePath = file.getAbsolutePath();
+
+
+	                // TODO call the transaction handler with the filepath
+	                //  -the handler based on user decisions should call a certain parser, ex: wells fargo: should be a gridpane with buttons
+
+
+	                filePath = file.getAbsolutePath();
                     System.out.println("Received: " +filePath);
+
+
+
+
+
+
+
+
                 }
             }
 

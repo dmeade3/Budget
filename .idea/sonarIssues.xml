@@ -3,6 +3,11 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="/a.dummy">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/Todo.txt">
           <value>
             <set />
@@ -14,6 +19,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/program_data/users/David/transactions/transactions_1.csv">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/program_data/users/Random User/transactions.csv">
           <value>
             <set />
           </value>
@@ -64,6 +74,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/gui/MainPage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/gui/RootPage.java">
           <value>
             <set />
           </value>
