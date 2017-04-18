@@ -8,11 +8,9 @@ package user.accounts;
  */
 public abstract class Account
 {
-
-    // TODO make this a super class or interface that other account types can be created from
-
     protected String name;
     protected AccountType accountType;
+    protected double balance;
 
     Account(String name, AccountType accountType)
     {
@@ -28,5 +26,15 @@ public abstract class Account
     public String getName()
     {
         return name;
+    }
+
+    public double getBalance()
+    {
+        return balance;
+    }
+
+    protected void setBalance(double balance)
+    {
+        this.balance = balance;
     }
 }

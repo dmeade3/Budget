@@ -24,7 +24,7 @@ Program:
     -when transactions read in they need to have info added to them
         -category empty unless previous mapping exists
 
-    -budget tab a budget for the whole account
+    -budget tab a budget for the whole user not just a single account
         -within a time range in the bottom panel  1 week / 1 month / 2 / 3 / 6
             -make those time ranges an enum that hold a day count
 
@@ -71,7 +71,7 @@ Program:
                     -total spent
 
                 Account:
-                    -balance
+                    -balance should be stored in the accounts csv file and updated everytime there is a change to it
 
                 TransactionParser:
                     -parser interface that all parsers have to implement
@@ -84,7 +84,7 @@ Program:
 
     -known vendors list
         -mapped to a specific category to help along with the category matching
-        -learns over time as you setr more rules
+        -learns over time as you set more rules
         -is saved and read in each time
             -EX   Walmart:->:groceries
                 :->: as the mapping symbol
