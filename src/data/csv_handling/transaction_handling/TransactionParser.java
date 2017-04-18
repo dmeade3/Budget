@@ -1,9 +1,12 @@
 package data.csv_handling.transaction_handling;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
+import data.MainProgramDatastore;
+import data.csv_handling.WellsFargoTransactionParser;
+import gui.RootPage;
+import javafx.scene.control.Alert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dcmeade on 4/17/2017.
@@ -13,39 +16,100 @@ public class TransactionParser
     public static void parseTransactionFile(String filePath)
     {
 
-        // TODO make sure fileending is on approved data list (csv for now)
         // TODO store the approved list somewhere
         // TODO if not on list popup error
 
-        // TODO this code should be somewhere else, pass the filename to a transaction parser object
+        // TODO pass the filename to a transaction parser object
         // TODO call the transaction handler with the filepath
         // TODO Even if no error a popup should come up and confirm the transactions where successfully added
         //  -the handler based on user decisions should call a certain parser, ex: wells fargo: should be a gridpane with buttons
 
+        List<String> fileEndings = new ArrayList<>();
+        fileEndings.add(".csv");
 
-        if (filePath.endsWith(".csv"))
+        // Verifies file type
+        boolean approved = false;
+        for (String approvedEnding : fileEndings)
         {
-            //read file into stream, try-with-resources
-            try (Stream<String> stream = Files.lines(Paths.get(filePath)))
+            if (filePath.endsWith(approvedEnding))
             {
-
-                stream.forEach(System.out::println);
-
+                approved = true;
             }
-            catch (IOException e)
+        }
+
+        if (approved)
+        {
+            // TODO determine, will always return wells fargo until other banks programmed
+            TransactionSource transactionSource = getTransactionSource();
+
+            List<Transaction> inTransactions = new ArrayList<>();
+
+            switch (transactionSource)
             {
-                e.printStackTrace();
+                case WELLSFARGOCHECKING:
+                    WellsFargoTransactionParser wellsFargoTransactionParser = new WellsFargoTransactionParser(filePath);
+
+                    inTransactions = wellsFargoTransactionParser.parseTransactions();
+                    break;
+
+                default:
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Not an approved File Source");
+                    alert.setHeaderText("");
+                    alert.showAndWait();
+            }
+
+            List<Transaction> duplicateTransactions = new ArrayList<>();
+
+            // Load the current user transactions
+            MainProgramDatastore.getInstance().loadCurrentUser();
+
+            // Transactions in the list under user are assumed to be right even if a duplicate
+            for (Transaction inTransaction : inTransactions)
+            {
+                boolean found = false;
+
+                for (Transaction confirmedTransaction : MainProgramDatastore.getInstance().getLoadedUser().getUnfilteredTransactions())
+                {
+                    if (confirmedTransaction.equals(inTransaction))
+                    {
+                        found = true;
+
+                        duplicateTransactions.add(inTransaction);
+
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    inTransaction.writeOutTransaction();
+                }
+            }
+
+            // TODO display duplicates and give the option to add them anyways
+            for (Transaction transaction : duplicateTransactions)
+            {
+                System.out.println("Duplicate: " + transaction);
             }
         }
         else
         {
-            // TODO popup error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Not an approved File Type");
+            alert.setHeaderText("");
+            alert.showAndWait();
         }
+
+        RootPage.reloadCenter(0);
     }
 
+    private static TransactionSource getTransactionSource()
+    {
 
+        // TODO
 
+        return TransactionSource.WELLSFARGOCHECKING;
 
-
-
+    }
 }

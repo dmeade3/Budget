@@ -1,6 +1,18 @@
 package data.csv_handling;
 
+import com.opencsv.CSVReader;
+import data.csv_handling.transaction_handling.HeaderFields;
+import data.csv_handling.transaction_handling.Transaction;
+import data.csv_handling.transaction_handling.TransactionSource;
 import org.apache.log4j.Logger;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static data.MainProgramDatastore.getColumnIndex;
 
 /**
  * Created by dcmeade on 4/7/2017.
@@ -16,7 +28,7 @@ public class WellsFargoTransactionParser
     *
     * */
 
-    /*private String filename;
+    private String filename;
 
     public WellsFargoTransactionParser(String filename)
     {
@@ -35,21 +47,26 @@ public class WellsFargoTransactionParser
             //Read CSV line by line and use the string array as you want
             for(String[] row : allRows)
             {
+                if (row[getColumnIndex("date", "transactions.csv")].equals("date"))
+                {
+                    continue;
+                }
+
                 if (row.length > 1)
                 {
                     int checkNumber = 0;
 
-                    if (!row[getTransactionColumnIndex("checkNumber")].equals(""))
+                    if (!row[getHeaderIndex("checkNumber")].equals(""))
                     {
-                        checkNumber = Integer.parseInt(getColumnIndex("namekjg", "accounts.csv"));
+                        checkNumber = Integer.parseInt(row[getHeaderIndex("checkNumber")]);
                     }
 
-                    transactions.add(new Transaction(new Date(row[getTransactionColumnIndex("name")]),
-                            Double.valueOf(row[getTransactionColumnIndex("amount")]),
+                    transactions.add(new Transaction(new Date(row[getHeaderIndex("date")]),
+                            Double.valueOf(row[getHeaderIndex("amount")]),
                             checkNumber,
-                            row[getTransactionColumnIndex("description")],
+                            row[getHeaderIndex("description")],
                             "",
-                            "")); // TODO this is going to give nulls
+                            ""));
                 }
             }
         }
@@ -61,8 +78,24 @@ public class WellsFargoTransactionParser
         return transactions;
     }
 
+    private int getHeaderIndex(String target)
+    {
+        int ctr = 0;
+        for (HeaderFields headerFields : TransactionSource.WELLSFARGOCHECKING.getHeader())
+        {
+            if (headerFields.getName().equals(target))
+            {
+                return ctr;
+            }
 
-    public static void main(String... args)
+            ctr++;
+        }
+
+        return -1;
+    }
+
+
+    /*public static void main(String... args)
     {
 	    BasicConfigurator.configure();
 

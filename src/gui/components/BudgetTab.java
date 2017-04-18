@@ -39,15 +39,18 @@ public class BudgetTab extends Tab
         // Style the selected budget section
         mainBudgetMiddleList.setOnMouseClicked(event ->
         {
-            mainBudgetMiddleList.getSelectionModel().getSelectedItem().setStyle(
-                "-fx-padding: 10;" +
-                "-fx-border-style: solid inside;" +
-                "-fx-border-width: 2;" +
-                "-fx-border-insets: 5;" +
-                "-fx-border-radius: 5;" +
-                "-fx-border-color: #A2FFFF;" +
-                "-fx-background-color: #1654FF;" +
-                "-fx-text-fill: white;"); // TODO make work 
+            if (mainBudgetMiddleList.getSelectionModel().getSelectedItem() != null)
+            {
+                mainBudgetMiddleList.getSelectionModel().getSelectedItem().setStyle(
+                        "-fx-padding: 10;" +
+                                "-fx-border-style: solid inside;" +
+                                "-fx-border-width: 2;" +
+                                "-fx-border-insets: 5;" +
+                                "-fx-border-radius: 5;" +
+                                "-fx-border-color: #A2FFFF;" +
+                                "-fx-background-color: #1654FF;" +
+                                "-fx-text-fill: white;"); // TODO make work
+            }
         });
 
         mainBudgetMiddleList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->

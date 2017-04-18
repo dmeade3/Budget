@@ -1,11 +1,5 @@
 Program:
-    Current:
-        Should be the top 3 things working on currently
-            [ ] structure the handling of transactions like a database
-                -when reading a new file in compare against what you already have
-                -once in main transaction file its assumed to be correct
-                    -put this in a comment near the read in function
-
+    [ ] use transaction.writeouteTransaction method everywhere
     [ ] make a function to get the current tab index and use instead of the #'s for realoading / just store when the tab index changes in the MainProgramData
     [ ] inside the login pane
         -handle right pass
@@ -15,13 +9,10 @@ Program:
             -should not load new user or change the user in combo box
     [ ] replace all system.out with logger statements
     [ ] when reading in transactions, dont read in the mystery line
-        -must be , same date, same amount, same check number to discard
+        -must be same date, same amount, same check number to discard
         -transaction should not hae fields that are like this / un-needed
-    [ ] in transaction editor there should be a drop down for categories
-        -categories should either an enum
-        -later implement the option to add your own category
+    [ ] Category drop down should have user made categories and the enum categories
     [ ] make in main program data a list of account that are selected on the tree, will be destroyed and filled after every account tree change
-    [ ] format transaction table so it always fills up whole table
     [ ] when reloading anything, keep the CURRENT_USER the same
     [ ] when opening a data csv file if it doesnt exist then create a new one
         -maybe create all new csv files on user creation, include the headers
@@ -49,7 +40,6 @@ Program:
     -make header in transactions the table header and not just a line
     -on close before calling reload should save off any visual settings so you don't have to re-click settings
     -test with completely blank user and make sure doesnt fail
-    -when reading in transactions don't read in duplicates
 
     -be able to add budget sections
     -be able to add transactions
@@ -72,7 +62,7 @@ Program:
                                 -pie graph of accounts
 
             User:
-                -has associated mapping of vendors to categories
+                -user has associated mapping of vendors to categories
 
                 Budget: will have to make this object and store it in the mainprogramdata
                     -list of budget sections
@@ -83,7 +73,7 @@ Program:
                 Account:
                     -balance
 
-                BankInfoParser:
+                TransactionParser:
                     -parser interface that all parsers have to implement
 
                     Switch statement to what kind of data it is:
@@ -94,8 +84,6 @@ Program:
 
     -known vendors list
         -mapped to a specific category to help along with the category matching
-        -maybe make categories an enum
-            -only disadvantage is that you cant modify
         -learns over time as you setr more rules
         -is saved and read in each time
             -EX   Walmart:->:groceries

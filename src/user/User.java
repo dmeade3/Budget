@@ -57,7 +57,12 @@ public class User
 		return accounts;
 	}
 
-	public List<Transaction> getTransactions()
+	public List<Transaction> getUnfilteredTransactions()
+	{
+		return transactions;
+	}
+
+	public List<Transaction> getTransactionsFiltered()
 	{
 		List<Transaction> filteredTransactions;
 

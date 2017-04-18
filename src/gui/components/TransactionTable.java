@@ -37,7 +37,7 @@ public class TransactionTable extends TableView
 
     private static ObservableList<Transaction> loadTransactions()
     {
-        transactions = FXCollections.observableArrayList(MainProgramDatastore.getInstance().getLoadedUser().getTransactions());
+        transactions = FXCollections.observableArrayList(MainProgramDatastore.getInstance().getLoadedUser().getTransactionsFiltered());
 
         return transactions;
     }

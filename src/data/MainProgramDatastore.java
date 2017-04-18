@@ -68,7 +68,6 @@ public class MainProgramDatastore
         this.startDate = startDate;
     }
 
-    // todo Make these functions more general
     private static String[] getHeader(String filename)
     {
         File file = new File(USERS_PATH + "\\" + CURRENT_USER + "\\" + filename);
@@ -88,6 +87,8 @@ public class MainProgramDatastore
         return null;
     }
 
+    // TODO find better way to pass file
+    // TODO make the first arg a HEADER field
     public static int getColumnIndex(String columnName, String filename)
     {
         String[] header = getHeader(filename);
