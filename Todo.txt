@@ -43,40 +43,35 @@ Program:
     -be able to add transactions
     -be able to add accounts
 
-    Hierarchy of objects:
-        Budget Program:
-            Gui:
-                Center:
-                    -is tabbed:
 
-                        Summary Tab:
-                            -graphs as part of it, should also have a pane of non labeled data
-                            -give breakdown of where money is being spent as well
-                                -pie graph of accounts
+    Summary Tab:
+        -graphs as part of it, should also have a pane of non labeled data
+        -give breakdown of where money is being spent as well
+            -pie graph of accounts
 
-                        Future tab:
-                            -help predict future financial status
+    Future tab:
+        -help predict future financial status
 
-            User:
-                -user has associated mapping of vendors to categories
+    User:
+        -user has associated mapping of vendors to categories
 
-                Budget: will have to make this object and store it in the mainprogramdata
-                    -list of budget sections
-                    -total budgeted
-                    -only need a getter because it should be calculated for each call
-                    -total spent
+        Budget: will have to make this object and store it in the mainprogramdata
+            -list of budget sections
+            -total budgeted
+            -only need a getter because it should be calculated for each call
+            -total spent
 
-                Account:
-                    -balance should be stored in the accounts csv file and updated everytime there is a change to it
+        Account:
+            -balance should be stored in the accounts csv file and updated everytime there is a change to it
 
-                TransactionParser:
-                    -parser interface that all parsers have to implement
+        TransactionParser:
+            -parser interface that all parsers have to implement
 
-                    Switch statement to what kind of data it is:
-                        csv:
+            Switch statement to what kind of data it is:
+                csv:
 
-                        other...:
-                            -find these file formats
+                other...:
+                    -find these file formats
 
     -known vendors list
         -mapped to a specific category to help along with the category matching

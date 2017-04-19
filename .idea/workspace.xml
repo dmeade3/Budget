@@ -59,11 +59,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Todo.txt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Todo.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Todo.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="6" column="48" lean-forward="true" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
+            <state relative-caret-position="352">
+              <caret line="64" column="80" lean-forward="false" selection-start-line="64" selection-start-column="80" selection-end-line="64" selection-end-column="80" />
               <folding />
             </state>
           </provider>
@@ -72,8 +72,8 @@
       <file leaf-file-name="TransactionTable.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/components/TransactionTable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="90" column="40" lean-forward="false" selection-start-line="90" selection-start-column="40" selection-end-line="90" selection-end-column="40" />
+            <state relative-caret-position="858">
+              <caret line="85" column="4" lean-forward="false" selection-start-line="85" selection-start-column="4" selection-end-line="85" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,14 +81,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TransactionEditor.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TransactionEditor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/components/TransactionEditor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="245" column="18" lean-forward="false" selection-start-line="245" selection-start-column="18" selection-end-line="245" selection-end-column="18" />
+            <state relative-caret-position="220">
+              <caret line="57" column="55" lean-forward="false" selection-start-line="57" selection-start-column="55" selection-end-line="57" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#TransactionEditor#0;class#TransactionEditor#0" expanded="true" />
+                <element signature="method#addListeners#0;class#TransactionEditor#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -198,14 +199,14 @@
         <option value="$PROJECT_DIR$/src/gui/components/BottomFilterPane.java" />
         <option value="$PROJECT_DIR$/src/data/csv_handling/transaction_handling/TransactionParser.java" />
         <option value="$PROJECT_DIR$/program_data/users/David/userCategories.csv" />
-        <option value="$PROJECT_DIR$/src/gui/components/TransactionTable.java" />
         <option value="$PROJECT_DIR$/src/user/budget/BudgetSection.java" />
         <option value="$PROJECT_DIR$/src/gui/RootPage.java" />
         <option value="$PROJECT_DIR$/src/gui/components/BudgetEditor.java" />
         <option value="$PROJECT_DIR$/src/gui/components/BudgetTab.java" />
-        <option value="$PROJECT_DIR$/Todo.txt" />
         <option value="$PROJECT_DIR$/program_data/users/David/transactions.csv" />
         <option value="$PROJECT_DIR$/src/gui/components/TransactionEditor.java" />
+        <option value="$PROJECT_DIR$/src/gui/components/TransactionTable.java" />
+        <option value="$PROJECT_DIR$/Todo.txt" />
       </list>
     </option>
   </component>
@@ -1101,7 +1102,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="39" width="2449" height="1353" extended-state="0" />
+    <frame x="-6" y="39" width="2449" height="1353" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1125,7 +1126,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25252524" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25252524" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18491997" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
@@ -1583,24 +1584,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/components/TransactionTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="90" column="40" lean-forward="false" selection-start-line="90" selection-start-column="40" selection-end-line="90" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Todo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="48" lean-forward="true" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/program_data/users/David/transactions.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
@@ -1611,12 +1594,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/components/TransactionEditor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="245" column="18" lean-forward="false" selection-start-line="245" selection-start-column="18" selection-end-line="245" selection-end-column="18" />
+        <state relative-caret-position="220">
+          <caret line="57" column="55" lean-forward="false" selection-start-line="57" selection-start-column="55" selection-end-line="57" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#TransactionEditor#0;class#TransactionEditor#0" expanded="true" />
+            <element signature="method#addListeners#0;class#TransactionEditor#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/components/TransactionTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="858">
+          <caret line="85" column="4" lean-forward="false" selection-start-line="85" selection-start-column="4" selection-end-line="85" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Todo.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="64" column="80" lean-forward="false" selection-start-line="64" selection-start-column="80" selection-end-line="64" selection-end-column="80" />
+          <folding />
         </state>
       </provider>
     </entry>

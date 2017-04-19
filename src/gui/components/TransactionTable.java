@@ -88,7 +88,7 @@ public class TransactionTable extends TableView
         {
             // Launch edit pane
             Stage stage = new Stage();
-            Scene scene = new Scene(new TransactionEditor((Transaction) newValue, stage), 400, 300);
+            Scene scene = new Scene(new TransactionEditor((Transaction) newValue), 400, 300);
 
             stage.setScene(scene);
             stage.setTitle("Transaction Editor");

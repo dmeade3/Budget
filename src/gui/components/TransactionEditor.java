@@ -12,7 +12,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import user.accounts.Account;
 import user.budget.BudgetCategory;
 
@@ -54,13 +53,10 @@ public class TransactionEditor extends GridPane
     private Label accountNameLabel;
     private Label categoryLabel;
 
-    private Stage stage;
-
 
     // TODO refactor this
-    public TransactionEditor(Transaction oldTransaction, Stage stage)
+    public TransactionEditor(Transaction oldTransaction)
     {
-        this.stage = stage;
         this.oldTransaction = oldTransaction;
 
         setPadding(new Insets(5));
