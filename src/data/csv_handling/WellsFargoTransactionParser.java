@@ -1,9 +1,7 @@
 package data.csv_handling;
 
 import com.opencsv.CSVReader;
-import data.csv_handling.transaction_handling.HeaderFields;
 import data.csv_handling.transaction_handling.Transaction;
-import data.csv_handling.transaction_handling.TransactionSource;
 import org.apache.log4j.Logger;
 
 import java.io.FileReader;
@@ -13,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import static data.MainProgramDatastore.getColumnIndex;
+import static data.csv_handling.transaction_handling.TransactionSource.WELLSFARGOCHECKING;
 
 /**
  * Created by dcmeade on 4/7/2017.
@@ -56,15 +55,15 @@ public class WellsFargoTransactionParser
                 {
                     int checkNumber = 0;
 
-                    if (!row[getHeaderIndex("checkNumber")].equals(""))
+                    if (!row[WELLSFARGOCHECKING.getHeaderIndex("checkNumber")].equals(""))
                     {
-                        checkNumber = Integer.parseInt(row[getHeaderIndex("checkNumber")]);
+                        checkNumber = Integer.parseInt(row[WELLSFARGOCHECKING.getHeaderIndex("checkNumber")]);
                     }
 
-                    transactions.add(new Transaction(new Date(row[getHeaderIndex("date")]),
-                            Double.valueOf(row[getHeaderIndex("amount")]),
+                    transactions.add(new Transaction(new Date(row[WELLSFARGOCHECKING.getHeaderIndex("date")]),
+                            Double.valueOf(row[WELLSFARGOCHECKING.getHeaderIndex("amount")]),
                             checkNumber,
-                            row[getHeaderIndex("description")],
+                            row[WELLSFARGOCHECKING.getHeaderIndex("description")],
                             "",
                             ""));
                 }
@@ -78,21 +77,7 @@ public class WellsFargoTransactionParser
         return transactions;
     }
 
-    private int getHeaderIndex(String target)
-    {
-        int ctr = 0;
-        for (HeaderFields headerFields : TransactionSource.WELLSFARGOCHECKING.getHeader())
-        {
-            if (headerFields.getName().equals(target))
-            {
-                return ctr;
-            }
 
-            ctr++;
-        }
-
-        return -1;
-    }
 
 
     /*public static void main(String... args)

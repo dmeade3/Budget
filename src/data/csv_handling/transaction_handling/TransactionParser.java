@@ -4,6 +4,7 @@ import data.MainProgramDatastore;
 import data.csv_handling.WellsFargoTransactionParser;
 import gui.RootPage;
 import javafx.scene.control.Alert;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
  */
 public class TransactionParser
 {
+    private static Logger logger = Logger.getLogger(TransactionParser.class);
+
     public static void parseTransactionFile(String filePath)
     {
 
@@ -90,7 +93,7 @@ public class TransactionParser
             // TODO display duplicates and give the option to add them anyways
             for (Transaction transaction : duplicateTransactions)
             {
-                System.out.println("Duplicate: " + transaction);
+                logger.warn("Duplicate: " + transaction);
             }
         }
         else
@@ -101,7 +104,7 @@ public class TransactionParser
             alert.showAndWait();
         }
 
-        RootPage.reloadCenter(0);
+        RootPage.reloadCenter(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
     }
 
     private static TransactionSource getTransactionSource()

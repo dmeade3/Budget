@@ -88,7 +88,7 @@ public class TransactionTable extends TableView
         {
             // Launch edit pane
             Stage stage = new Stage();
-            Scene scene = new Scene(new TransactionEditor((Transaction) newValue), 400, 300);
+            Scene scene = new Scene(new TransactionEditor((Transaction) newValue, stage), 400, 300);
 
             stage.setScene(scene);
             stage.setTitle("Transaction Editor");
@@ -98,7 +98,7 @@ public class TransactionTable extends TableView
             {
                 MainProgramDatastore.getInstance().loadCurrentUser();
 
-                RootPage.reloadCenter(2); // TODO figure out a better way to do this, maybe map the tabs to their index
+                RootPage.reloadCenter(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
             });
         });
     }

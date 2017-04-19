@@ -16,6 +16,7 @@ public abstract class Account
     {
         this.name = name;
         this.accountType = accountType;
+        this.balance = 0;
     }
 
     public AccountType getAccountType()

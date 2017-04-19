@@ -2,10 +2,12 @@ package gui.components;
 
 import data.MainProgramDatastore;
 import gui.RootPage;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import util.TimeRange;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -17,6 +19,10 @@ import java.time.ZoneId;
  */
 public class BottomFilterPane extends GridPane
 {
+    private LabeledDatePicker startLabeledDatePicker;
+    private LabeledDatePicker endLabeledDatePicker;
+    private LabeledComboBox timeRangeComboBox;
+
     public BottomFilterPane()
     {
         // Rows
@@ -39,15 +45,41 @@ public class BottomFilterPane extends GridPane
             getColumnConstraints().add(col);
         }
 
-        LabeledDatePicker startLabeledDatePicker = new LabeledDatePicker(new Date(MainProgramDatastore.getInstance().getStartDate().getTime()).toLocalDate(), "Start Date");
+        startLabeledDatePicker = new LabeledDatePicker(new Date(MainProgramDatastore.getInstance().getStartDate().getTime()).toLocalDate(), "Start Date");
         add(startLabeledDatePicker, 4, 0);
 
-        LabeledDatePicker endLabeledDatePicker = new LabeledDatePicker(new Date(MainProgramDatastore.getInstance().getEndDate().getTime()).toLocalDate(), "End Date");
+        endLabeledDatePicker = new LabeledDatePicker(new Date(MainProgramDatastore.getInstance().getEndDate().getTime()).toLocalDate(), "End Date");
         add(endLabeledDatePicker, 6, 0);
 
+        // Make the combobox
+        ComboBox<TimeRange> comboBox = new ComboBox<>();
+        comboBox.getItems().addAll(TimeRange.values());
+
+        timeRangeComboBox = new LabeledComboBox(comboBox, "Preset Range");
+        add(timeRangeComboBox, 5, 0);
+
+        addListenersCellFactories();
+    }
+
+    private void addListenersCellFactories()
+    {
+        timeRangeComboBox.getComboBox().valueProperty().addListener(event ->
+        {
+            TimeRange timeRange = (TimeRange) timeRangeComboBox.getComboBox().getSelectionModel().getSelectedItem();
+
+            endLabeledDatePicker.getDatePicker().setValue(LocalDate.now());
+            startLabeledDatePicker.getDatePicker().setValue(LocalDate.now().minusDays(timeRange.getDayCount()));
+
+            Instant startInstant = Instant.from(startLabeledDatePicker.getDatePicker().getValue().atStartOfDay(ZoneId.systemDefault()));
+            Instant endInstant = Instant.from(endLabeledDatePicker.getDatePicker().getValue().atStartOfDay(ZoneId.systemDefault()));
+
+            MainProgramDatastore.getInstance().setStartDate(Date.from(startInstant));
+            MainProgramDatastore.getInstance().setEndDate(java.util.Date.from(endInstant));
+
+            RootPage.reloadAllButAdminAndBottom(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
+        });
 
         // TODO restrict the end date to be after the start date
-
         startLabeledDatePicker.getDatePicker().setDayCellFactory((p) -> new DateCell()
         {
             LocalDate maxDate;
@@ -66,7 +98,7 @@ public class BottomFilterPane extends GridPane
 
                 MainProgramDatastore.getInstance().setStartDate(Date.from(instant));
 
-                RootPage.reloadCenter(2);
+                RootPage.reloadCenter(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
             }
         });
 
@@ -95,7 +127,7 @@ public class BottomFilterPane extends GridPane
 
                 MainProgramDatastore.getInstance().setEndDate(Date.from(instant));
 
-                RootPage.reloadCenter(2);
+                RootPage.reloadCenter(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
             }
         });
     }

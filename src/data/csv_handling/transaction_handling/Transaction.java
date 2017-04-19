@@ -97,9 +97,9 @@ public class Transaction
         }
     }
 
-    public String guiViewString()
+    public String transactionEditorString()
     {
-        return date + "," + formatter.format(amount) + "," + "," + checkNumber + "," + description + "," + accountName + "," + category;
+        return date + "," + formatter.format(amount) + "," + "unknown" + "," + checkNumber + "," + description + "," + accountName + "," + category;
     }
 
     public void writeOutTransaction()

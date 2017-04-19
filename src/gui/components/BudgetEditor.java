@@ -71,7 +71,11 @@ public class BudgetEditor extends GridPane
                 Path path = Paths.get(String.valueOf(budgetFile));
                 Charset charset = StandardCharsets.UTF_8;
 
+                System.out.println("replace:\n" + oldBudgetSection.csvToString().trim());
+
                 String content = new String(Files.readAllBytes(path), charset);
+
+                System.out.println("Content: \n" + content);
 
                 content = content.replace(oldBudgetSection.csvToString().trim(), newBudgetSection.csvToString().trim());
 

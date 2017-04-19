@@ -82,7 +82,7 @@ public class RootPage
                 {
 
 	                filePath = file.getAbsolutePath();
-                    System.out.println("Received: " +filePath); // make logging
+                    logger.info("Received: " +filePath);
 
                     TransactionParser.parseTransactionFile(filePath);
                 }
@@ -112,7 +112,6 @@ public class RootPage
     public static void reloadCenter(int tabIndexToSelect)
     {
         MainCenterTabPane mainCenterTabPane = new MainCenterTabPane();
-
         mainCenterTabPane.getSelectionModel().select(tabIndexToSelect);
 
         root.setCenter(mainCenterTabPane);
@@ -123,9 +122,13 @@ public class RootPage
         loadSceneRoot();
     }
 
-    public static void reloadAllButAdmin()
+    public static void reloadAllButAdminAndBottom(int tabIndexToSelect)
     {
         root.setLeft(new AccountTreeView());
-        root.setCenter(new MainCenterTabPane());
+
+        MainCenterTabPane mainCenterTabPane = new MainCenterTabPane();
+        mainCenterTabPane.getSelectionModel().select(tabIndexToSelect);
+
+        root.setCenter(mainCenterTabPane);
     }
 }

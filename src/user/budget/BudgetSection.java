@@ -35,7 +35,7 @@ public class BudgetSection
 
 	public String csvToString()
 	{
-		return "\"" + name + "\",\"" + budgetLimit + "\",\"" + amountSpent + "\"\n";
+		return "\"" + name + "\",\"" + budgetLimit + "\n";
 	}
 
 	public static String csvHeader()

@@ -96,7 +96,7 @@ public class AdminPane extends TitledPane
 
                 MainProgramDatastore.getInstance().loadCurrentUser();
 
-                RootPage.reloadAllButAdmin();
+                RootPage.reloadAllButAdminAndBottom(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
             }
         });
     }

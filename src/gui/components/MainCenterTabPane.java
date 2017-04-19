@@ -1,5 +1,6 @@
 package gui.components;
 
+import data.MainProgramDatastore;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -14,5 +15,15 @@ public class MainCenterTabPane extends TabPane
         getTabs().add(new Tab("Summary"));
         getTabs().add(new TransactionTab());
         getTabs().add(new Tab("Future"));
+
+        addListeners();
+    }
+
+    private void addListeners()
+    {
+        setOnMouseClicked(event ->
+        {
+            MainProgramDatastore.getInstance().setSelectedMainTabIndex(getSelectionModel().getSelectedIndex());
+        });
     }
 }

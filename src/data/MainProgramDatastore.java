@@ -32,6 +32,8 @@ public class MainProgramDatastore
     private Date startDate = getInitialStartDate();
     private Date endDate = new Date();
 
+    private int selectedMainTabIndex = 0;
+
     ///////////////////////////////////////////////////////////
 
     private MainProgramDatastore()
@@ -43,10 +45,18 @@ public class MainProgramDatastore
         return ourInstance;
     }
 
-
-
     //////////////////////////////////////////////////////////
 
+
+    public int getSelectedMainTabIndex()
+    {
+        return selectedMainTabIndex;
+    }
+
+    public void setSelectedMainTabIndex(int selectedMainTabIndex)
+    {
+        this.selectedMainTabIndex = selectedMainTabIndex;
+    }
 
     public Date getStartDate()
     {

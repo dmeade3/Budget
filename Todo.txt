@@ -1,33 +1,35 @@
 Program:
-    [ ] use transaction.writeouteTransaction method everywhere
-    [ ] make a function to get the current tab index and use instead of the #'s for realoading / just store when the tab index changes in the MainProgramData
+
+    [ ] make account selector pane function
+    [ ] make budget tab use the current transactions to fill out data function
+
+
+    [ ] sonce delete hit disable all input boxes
+    [ ] sort all comboboxes
+    [ ] dont bring up login popup if no password set
+        -set password in some kind of admin preferences page
+        -needs to be a way to set password
+            -type in old password, then new
+    [ ] in transaction editor date should be a date picker
     [ ] inside the login pane
         -handle right pass
         -wrong pass
-            -ask again for the password for 3 times then exit like cancel, oportunity to try again after trying to change user again
+            -ask again for the password for 3 times then exit like cancel, opportunity to try again after trying to change user again
         -cancel
             -should not load new user or change the user in combo box
-    [ ] replace all system.out with logger statements
-    [ ] when reading in transactions, dont read in the mystery line
-        -must be same date, same amount, same check number to discard
-        -transaction should not hae fields that are like this / un-needed
-    [ ] Category drop down should have user made categories and the enum categories
+
+    [ ] in editors, after hitting save or delete the popup should close
     [ ] make in main program data a list of account that are selected on the tree, will be destroyed and filled after every account tree change
     [ ] when reloading anything, keep the CURRENT_USER the same
+        -if it was not changed
     [ ] when opening a data csv file if it doesnt exist then create a new one
         -maybe create all new csv files on user creation, include the headers
 
-    -be able to delete transaction from transaction tab
-        -have a delete button right next to the save
-            -delete should bring up a separate gui ask are you sure?
-
+    -delete should bring up a separate gui ask are you sure?
     -when transactions read in they need to have info added to them
         -category empty unless previous mapping exists
 
     -budget tab a budget for the whole user not just a single account
-        -within a time range in the bottom panel  1 week / 1 month / 2 / 3 / 6
-            -make those time ranges an enum that hold a day count
-
     -input rules on all text fields / try catches and error messages
         -this really means test stupid inputs and make sure the program doesnt let it go through / breaks
     -make user password protected as an option
@@ -36,23 +38,14 @@ Program:
             -this is going to be its own thing here
             -encrypt decrypt package
 
-    -the right side should be a summary of what is in the middle if the gui / unless i just want to have it all in the summary tab
-    -make header in transactions the table header and not just a line
-    -on close before calling reload should save off any visual settings so you don't have to re-click settings
     -test with completely blank user and make sure doesnt fail
-
     -be able to add budget sections
     -be able to add transactions
     -be able to add accounts
 
-
     Hierarchy of objects:
         Budget Program:
             Gui:
-                Bottom:
-                    -changing of tabs should trigger this panel to change
-                        -might have different types of filters for different tabs
-
                 Center:
                     -is tabbed:
 
@@ -60,6 +53,9 @@ Program:
                             -graphs as part of it, should also have a pane of non labeled data
                             -give breakdown of where money is being spent as well
                                 -pie graph of accounts
+
+                        Future tab:
+                            -help predict future financial status
 
             User:
                 -user has associated mapping of vendors to categories
@@ -92,32 +88,17 @@ Program:
     -store balance info
         -admin section to set current balance when first setting up program
 
-    Junit tests for behavior that wont change like th logic:
-        [ ] Data
-        [ ] Gui
-        [ ] Security
-        [ ] User
-        [ ] Util
-
     Functionality:
-        -eventually start making junit test cases for this stuff
         -take transactions from mint
-        -will need to format read in transactions
         -investment tracking
         -should say when account was last updated in summary tab
             -will need to add this to the account csv
             -make file find and replace util
                 -make very general csv find and replace for whole rows / individual items
-        -help predict future financial status
-        -when account clicked on it should update the middle scrollpane with that account info
-        -bottom section should be able to switch the view between a 1 week / 1 month / 2 / 3 / 6 / year / all
-            -combo box
-            -maybe enum if it makes sense
-            -converting function that should
-            -be for tabs budget, summary
-                -future should have a separate time picker for date intervals into the future
-                -summary should default be 1 week back
 
+        -when asking about where the csv came from, ask about accounts or bank, account should have mapping of csv in it
+        -when account clicked on it should update the middle scrollpane with that account info
+        -replace all system.out with logger statements
         -eventually take out all the creation dates
             -if ever going public with this will need to wipe all date info on it
             -github has the dates too

@@ -24,6 +24,8 @@ public class BudgetTab extends Tab
         middleScrollPane.setFitToHeight(true);
         middleScrollPane.setFitToWidth(true);
 
+        MainProgramDatastore.getInstance().loadCurrentUser();
+
         mainBudgetMiddleList.setItems(FXCollections.observableArrayList(MainProgramDatastore.getInstance().getLoadedUser().getBudgets()));
 
         middleScrollPane.setContent(mainBudgetMiddleList);
@@ -63,9 +65,9 @@ public class BudgetTab extends Tab
             stage.setTitle("Budget Editor");
             stage.show();
 
-            stage.setOnCloseRequest(event ->
+            stage.setOnCloseRequest(event2 ->
             {
-                RootPage.reloadCenter(0);
+                RootPage.reloadCenter(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
             });
         });
     }
