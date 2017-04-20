@@ -6,6 +6,7 @@ import data.csv_handling.transaction_handling.Transaction;
 import gui.components.BudgetWithProgressBar;
 import org.apache.log4j.Logger;
 import user.accounts.*;
+import user.budget.BudgetCategory;
 import user.budget.BudgetSection;
 
 import java.io.File;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 import static data.MainProgramDatastore.getColumnIndex;
+import static user.budget.BudgetCategory.DEFAULT;
 import static util.SystemInfo.CURRENT_USER;
 import static util.SystemInfo.USERS_PATH;
 
@@ -111,6 +113,7 @@ public class User
 				if (row.length > 1)
 				{
 					int checkingNumber = 0;
+					BudgetCategory category = DEFAULT;
 
 					// Handle no checking number
 					if (!row[getColumnIndex("checkNumber", "transactions.csv")].equals(""))
@@ -118,13 +121,19 @@ public class User
 						checkingNumber = Integer.valueOf(row[getColumnIndex("checkNumber", "transactions.csv")]);
 					}
 
+					if (!row[getColumnIndex("category", "transactions.csv")].equals(""))
+					{
+						category = BudgetCategory.valueOf(row[getColumnIndex("category", "transactions.csv")]);
+					}
+
+
 					transactions.add(new Transaction(
 							new Date(row[getColumnIndex("date", "transactions.csv")]),
 							Double.valueOf(row[getColumnIndex("amount", "transactions.csv")]),
 							checkingNumber,
 							row[getColumnIndex("description", "transactions.csv")],
 							row[getColumnIndex("account", "transactions.csv")],
-							row[getColumnIndex("category", "transactions.csv")]));
+							category));
 				}
 			}
 		} catch (IOException e)

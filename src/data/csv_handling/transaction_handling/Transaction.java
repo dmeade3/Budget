@@ -1,5 +1,7 @@
 package data.csv_handling.transaction_handling;
 
+import user.budget.BudgetCategory;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -14,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static util.SystemInfo.CURRENT_USER;
+import static util.SystemInfo.SEPARATOR;
 import static util.SystemInfo.USERS_PATH;
 
 /**
@@ -26,12 +29,12 @@ public class Transaction
     private int checkNumber;
     private String description;
     private String accountName;
-    private String category;
+    private BudgetCategory category;
 
     public static DateFormat dateFormat =  new SimpleDateFormat("MM/dd/yyyy");
     public static NumberFormat formatter = new DecimalFormat("#0.00");
 
-    public Transaction(Date date, Double amount, int checkNumber, String description, String accountName, String category)
+    public Transaction(Date date, Double amount, int checkNumber, String description, String accountName, BudgetCategory category)
     {
         this.date = date;
         this.amount = amount;
@@ -41,7 +44,7 @@ public class Transaction
         this.category = category;
     }
 
-    public String getCategory()
+    public BudgetCategory getCategory()
     {
         return category;
     }
@@ -99,7 +102,8 @@ public class Transaction
 
     public String transactionEditorString()
     {
-        return date + "," + formatter.format(amount) + "," + "unknown" + "," + checkNumber + "," + description + "," + accountName + "," + category;
+        return date + SEPARATOR + formatter.format(amount) + SEPARATOR + "unknown" + SEPARATOR + checkNumber +
+                SEPARATOR + description + SEPARATOR + accountName + SEPARATOR + category;
     }
 
     public void writeOutTransaction()
@@ -114,9 +118,9 @@ public class Transaction
         String newTransaction = "\"" + Transaction.dateFormat.format(getDate()) + "\",\"" +
                 Transaction.formatter.format(getAmount()) + "\",\"" +
                 checkNumber + "\",\"" +
-                getDescription() + "\"," +
-                "\"\"" + "," +
-                "\"\""
+                getDescription() + "\",\"" +
+                "\",\"" +   // Account at this point is not read in or mapped
+                category + "\"" // Category at this point is not mapped
                 ;
 
         File file = new File(USERS_PATH + "\\" + CURRENT_USER + "\\transactions.csv");

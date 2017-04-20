@@ -12,6 +12,7 @@ public class SystemInfo
 	public static final String USERS_PATH = PROGRAM_PATH + "\\program_data\\users";
 
 
+    public static final String SEPARATOR = "1q2w3e4r5t6y7u8i9o";
 
     public static final String PROGRAM_NAME = "Budget";
 

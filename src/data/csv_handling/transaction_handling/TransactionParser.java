@@ -18,8 +18,7 @@ public class TransactionParser
 
     public static void parseTransactionFile(String filePath)
     {
-
-        // TODO store the approved list somewhere
+        // TODO store the approved list of file endings somewhere
         // TODO if not on list popup error
 
         // TODO pass the filename to a transaction parser object
@@ -74,6 +73,8 @@ public class TransactionParser
 
                 for (Transaction confirmedTransaction : MainProgramDatastore.getInstance().getLoadedUser().getUnfilteredTransactions())
                 {
+
+                    // check if the new read in transaction is a duplicate of an existing transaction
                     if (confirmedTransaction.equals(inTransaction))
                     {
                         found = true;
@@ -104,15 +105,13 @@ public class TransactionParser
             alert.showAndWait();
         }
 
+        // Reload the center of the screen
         RootPage.reloadCenter(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
     }
 
     private static TransactionSource getTransactionSource()
     {
-
         // TODO
-
         return TransactionSource.WELLSFARGOCHECKING;
-
     }
 }

@@ -1,50 +1,46 @@
 package gui.components;
 
-import com.opencsv.CSVReader;
 import data.MainProgramDatastore;
 import data.csv_handling.transaction_handling.Transaction;
+import gui.RootPage;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import user.accounts.Account;
 import user.budget.BudgetCategory;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.Collator;
-import java.util.ArrayList;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static data.csv_handling.transaction_handling.TransactionSource.WELLSFARGOCHECKING;
-import static util.SystemInfo.CURRENT_USER;
-import static util.SystemInfo.USERS_PATH;
+import static util.SystemInfo.*;
 
 /**
  * Created by dcmeade on 4/10/2017.
  */
 public class TransactionEditor extends GridPane
 {
-    private Button saveButton;
-    private Button deleteButton;
-    private TextField dateField;
+    private ButtonType saveButton;
+    private ButtonType deleteButton;
+    private DatePicker datePicker;
     private TextField amountField;
     private TextField checkNumberField;
     private TextField descriptionField;
     private ComboBox<String> accountNameComboBox;
-    private ComboBox<String> categoryComboBox;
+    private ComboBox<BudgetCategory> categoryComboBox;
     private Transaction oldTransaction;
     private Label dateLabel;
     private Label amountLabel;
@@ -52,19 +48,25 @@ public class TransactionEditor extends GridPane
     private Label descriptionLabel;
     private Label accountNameLabel;
     private Label categoryLabel;
+    private Dialog dialog;
 
 
     // TODO refactor this
-    public TransactionEditor(Transaction oldTransaction)
+    public TransactionEditor(Transaction oldTransaction, Dialog dialog)
     {
         this.oldTransaction = oldTransaction;
+        this.dialog = dialog;
 
         setPadding(new Insets(5));
         setHgap(5);
         setVgap(5);
 
         dateLabel = new Label("Date");
-        dateField = new TextField(Transaction.dateFormat.format(oldTransaction.getDate()));
+
+        // TODO make the string here the same as in transaction
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        datePicker = new DatePicker(LocalDate.parse(Transaction.dateFormat.format(oldTransaction.getDate()), formatter));
 
         amountLabel = new Label("Amount");
         amountField = new TextField(String.valueOf(oldTransaction.getAmount()));
@@ -93,42 +95,15 @@ public class TransactionEditor extends GridPane
             accountNameComboBox.getSelectionModel().select(null);
         }
 
-
         categoryLabel = new Label("Category");
         categoryComboBox = new ComboBox(); // TODO the values for the should be read in by enum / user categories
 
         // init category combobox
-        // add user categories
-        File file = new File(USERS_PATH + "\\" + CURRENT_USER + "\\userCategories.csv");
-        List<String> userCategories = new ArrayList<>();
-
-        try (CSVReader reader = new CSVReader(new FileReader(file), ',', '"', 1))
-        {
-            //Read all rows at once
-            List<String[]> allRows = reader.readAll();
-
-            //Read CSV line by line and use the string array as you want
-            for (String[] row : allRows)
-            {
-                // make sure row exists and matches type for section
-                if (row.length > 0)
-                {
-                    userCategories.add(row[0]);
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println("Cant open userCategories.csv: " + e.getMessage());
-        }
-
-        // Add user categories
-        categoryComboBox.getItems().addAll(userCategories);
 
         // Add the default
         for (BudgetCategory budgetCategory : BudgetCategory.values())
         {
-            categoryComboBox.getItems().add(budgetCategory.name());
+            categoryComboBox.getItems().add(budgetCategory);
         }
 
         // Select default
@@ -142,11 +117,15 @@ public class TransactionEditor extends GridPane
         }
 
         // Sort combo Box
-        final ObservableList<String> comboBoxItems = categoryComboBox.getItems();
-        categoryComboBox.setItems(new SortedList<>(comboBoxItems, Collator.getInstance()));
+        final ObservableList<BudgetCategory> comboBoxItems = categoryComboBox.getItems();
 
-        saveButton = new Button("Save");
-        deleteButton = new Button("Delete");
+        categoryComboBox.setItems(comboBoxItems.sorted());
+
+        saveButton = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(saveButton);
+
+        deleteButton = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(deleteButton);
 
         populateGridPane();
 
@@ -157,8 +136,8 @@ public class TransactionEditor extends GridPane
     {
         GridPane.setHalignment(dateLabel, HPos.RIGHT);
         add(dateLabel, 0, 0);
-        GridPane.setHalignment(dateField, HPos.LEFT);
-        add(dateField, 1, 0);
+        GridPane.setHalignment(datePicker, HPos.LEFT);
+        add(datePicker, 1, 0);
 
         GridPane.setHalignment(amountLabel, HPos.RIGHT);
         add(amountLabel, 0, 1);
@@ -186,26 +165,33 @@ public class TransactionEditor extends GridPane
         add(categoryComboBox, 1, 5);
 
         // Save button
-        GridPane.setHalignment(saveButton, HPos.RIGHT);
+        /*GridPane.setHalignment(saveButton, HPos.RIGHT);
         add(saveButton, 1, 6);
 
         // Delete Button
         GridPane.setHalignment(deleteButton, HPos.RIGHT);
-        add(deleteButton, 0, 6);
+        add(deleteButton, 0, 6);*/
     }
 
     private void addListeners()
     {
-        deleteButton.setOnMouseClicked(event ->
+        // TODO refactor this to not have repeat code and to be very reliable
+        dialog.setResultConverter(b ->
         {
             StringBuilder replace = new StringBuilder();
-            String oldTransactionArray[] = oldTransaction.transactionEditorString().split(",");
+            String replaceWith = "";
+
+            //System.out.println(oldTransaction.transactionEditorString());
+
+            String oldTransactionArray[] = oldTransaction.transactionEditorString().split(SEPARATOR);
+
+            //System.out.println(oldTransactionArray.length);
 
             // Format the date
             oldTransactionArray[WELLSFARGOCHECKING.getHeaderIndex("date")] = Transaction.dateFormat.format(new Date(oldTransactionArray[WELLSFARGOCHECKING.getHeaderIndex("date")]));
 
             // Modify the old transaction
-            for (int i = 0; i < oldTransactionArray.length; i++)
+            for (int i = 0; i < Arrays.asList(oldTransactionArray).size(); i++)
             {
                 if (i == WELLSFARGOCHECKING.getHeaderIndex("unknown"))
                 {
@@ -226,6 +212,37 @@ public class TransactionEditor extends GridPane
                 }
             }
 
+            // On save verify right format and replace the transaction in history
+            if (b == saveButton)
+            {
+                String checkNumber = checkNumberField.getText();
+
+                if (Integer.valueOf(checkNumberField.getText()).equals(0))
+                {
+                    checkNumber = "";
+                }
+
+                // Format the date from the datepicker
+                LocalDate localDate = datePicker.getValue();
+                Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+                Date date = Date.from(instant);
+                String dateVal = Transaction.dateFormat.format(date);
+
+                replaceWith = "\"" +
+                        dateVal + "\",\"" +
+                        Transaction.formatter.format(Double.valueOf(amountField.getText())) + "\",\"" +
+                        checkNumber + "\",\"" +
+                        descriptionField.getText() + "\",\"" +
+                        accountNameComboBox.getSelectionModel().getSelectedItem() + "\",\"" +
+                        categoryComboBox.getSelectionModel().getSelectedItem() + "\""
+                        ;
+            }
+            else if (b == deleteButton)
+            {
+                // Nothing needs to be done
+            }
+
+            // Replace / Delete the transaction in the file
             File file = new File(USERS_PATH + "\\" + CURRENT_USER + "\\transactions.csv");
             try
             {
@@ -237,7 +254,7 @@ public class TransactionEditor extends GridPane
                 //System.out.println("replace");
                 //System.out.println(replace);
 
-                content = content.replace(replace.toString(), "");
+                content = content.replace(replace.toString(), replaceWith);
 
                 //System.out.println(content);
 
@@ -248,87 +265,10 @@ public class TransactionEditor extends GridPane
                 e.printStackTrace();
             }
 
-            saveButton.setDisable(true);
-            deleteButton.setDisable(true);
-            dateField.setDisable(true);
-            amountField.setDisable(true);
-            checkNumberField.setDisable(true);
-            descriptionField.setDisable(true);
-            accountNameComboBox.setDisable(true);
-            categoryComboBox.setDisable(true);
-        });
+            // Reload the Center
+            RootPage.reloadCenter(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
 
-
-        // On save verify right format and replace the transaction in history
-        saveButton.setOnMouseClicked(event ->
-        {
-            String checkNumber = checkNumberField.getText();
-
-            if (Integer.valueOf(checkNumberField.getText()).equals(0))
-            {
-                checkNumber = "";
-            }
-
-            String newTransaction = "\"" + Transaction.dateFormat.format(new Date(dateField.getText())) + "\",\"" +
-                    Transaction.formatter.format(Double.valueOf(amountField.getText())) + "\",\"" +
-                    checkNumber + "\",\"" +
-                    descriptionField.getText() + "\",\"" +
-                    accountNameComboBox.getSelectionModel().getSelectedItem() + "\",\"" +
-                    categoryComboBox.getSelectionModel().getSelectedItem() + "\""
-                    ;
-
-            StringBuilder replace = new StringBuilder();
-            String oldTransactionArray[] = oldTransaction.transactionEditorString().split(",");
-
-            // Format the date
-            oldTransactionArray[WELLSFARGOCHECKING.getHeaderIndex("date")] = Transaction.dateFormat.format(new Date(oldTransactionArray[WELLSFARGOCHECKING.getHeaderIndex("date")]));
-
-            // Modify the old transaction
-            for (int i = 0; i < oldTransactionArray.length; i++)
-            {
-                if (i == WELLSFARGOCHECKING.getHeaderIndex("unknown"))
-                {
-                    continue;
-                }
-
-                if ((i == WELLSFARGOCHECKING.getHeaderIndex("checkNumber")) && (oldTransactionArray[WELLSFARGOCHECKING.getHeaderIndex("checkNumber")].equals("0")))
-                {
-                    oldTransactionArray[WELLSFARGOCHECKING.getHeaderIndex("checkNumber")] = "";
-                }
-
-                replace.append("\"" + oldTransactionArray[i] + "\"");
-
-                // Separate the items
-                if (i != oldTransactionArray.length-1)
-                {
-                    replace.append(",");
-                }
-            }
-
-
-            File file = new File(USERS_PATH + "\\" + CURRENT_USER + "\\transactions.csv");
-            try
-            {
-                Path path = Paths.get(String.valueOf(file));
-                Charset charset = StandardCharsets.UTF_8;
-
-                String content = new String(Files.readAllBytes(path), charset);
-
-                //System.out.println("replace");
-                //System.out.println(replace);
-
-                content = content.replace(replace.toString(), newTransaction);
-
-                //System.out.println(content);
-
-                Files.write(path, content.getBytes(charset));
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-
-
+            return "Results";
         });
     }
 }

@@ -5,6 +5,7 @@ package user.budget;
  */
 public enum BudgetCategory
 {
+    DEFAULT("Default"),
     INCOME("Income"),
     BONUS("BONUS"),
     ELECTRICITY("Electricity"),
@@ -16,7 +17,6 @@ public enum BudgetCategory
     WATER("Water"),
     RESTAURANTS("Restaurants"),
     GROCERIES("Groceries")
-
     ;
 
     String name;

@@ -2,16 +2,14 @@ package gui.components;
 
 import data.MainProgramDatastore;
 import data.csv_handling.transaction_handling.Transaction;
-import gui.RootPage;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 
 /**
@@ -49,7 +47,7 @@ public class TransactionTable extends TableView
         amountColumn.setCellValueFactory(     cellData -> new SimpleDoubleProperty(cellData.getValue().getAmount()).asObject());
         accountColumn.setCellValueFactory(    cellData -> new SimpleStringProperty(cellData.getValue().getAccountName()));
         checkNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getCheckNumber()).asObject());
-        categoryColumn.setCellValueFactory(   cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
+        categoryColumn.setCellValueFactory(   cellData -> new SimpleStringProperty(cellData.getValue().getCategory().name()));
         descriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
 
         dateColumn.setMinWidth(125);
@@ -87,19 +85,13 @@ public class TransactionTable extends TableView
         getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
             // Launch edit pane
-            Stage stage = new Stage();
-            Scene scene = new Scene(new TransactionEditor((Transaction) newValue), 400, 300);
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Transaction Editor");
+            dialog.setResizable(true);
 
-            stage.setScene(scene);
-            stage.setTitle("Transaction Editor");
-            stage.show();
+            dialog.getDialogPane().setContent(new TransactionEditor((Transaction) newValue, dialog));
 
-            stage.setOnCloseRequest(event ->
-            {
-                MainProgramDatastore.getInstance().loadCurrentUser();
-
-                RootPage.reloadCenter(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
-            });
+            dialog.showAndWait();
         });
     }
 }

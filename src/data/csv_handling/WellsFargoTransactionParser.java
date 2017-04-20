@@ -12,6 +12,7 @@ import java.util.List;
 
 import static data.MainProgramDatastore.getColumnIndex;
 import static data.csv_handling.transaction_handling.TransactionSource.WELLSFARGOCHECKING;
+import static user.budget.BudgetCategory.DEFAULT;
 
 /**
  * Created by dcmeade on 4/7/2017.
@@ -19,13 +20,6 @@ import static data.csv_handling.transaction_handling.TransactionSource.WELLSFARG
 public class WellsFargoTransactionParser
 {
     private static final Logger logger = Logger.getLogger(WellsFargoTransactionParser.class.getName());
-
-
-    /*
-    *
-    * TODO Depricated
-    *
-    * */
 
     private String filename;
 
@@ -46,7 +40,7 @@ public class WellsFargoTransactionParser
             //Read CSV line by line and use the string array as you want
             for(String[] row : allRows)
             {
-                if (row[getColumnIndex("date", "transactions.csv")].equals("date"))
+                if (row[getColumnIndex("date", "transactions.csv")].equals(WELLSFARGOCHECKING.getHeader()[0]))
                 {
                     continue;
                 }
@@ -60,12 +54,14 @@ public class WellsFargoTransactionParser
                         checkNumber = Integer.parseInt(row[WELLSFARGOCHECKING.getHeaderIndex("checkNumber")]);
                     }
 
-                    transactions.add(new Transaction(new Date(row[WELLSFARGOCHECKING.getHeaderIndex("date")]),
+                    transactions.add(new Transaction(
+                            new Date(row[WELLSFARGOCHECKING.getHeaderIndex("date")]),
                             Double.valueOf(row[WELLSFARGOCHECKING.getHeaderIndex("amount")]),
                             checkNumber,
                             row[WELLSFARGOCHECKING.getHeaderIndex("description")],
-                            "",
-                            ""));
+                            "", // account as of right now is not mapped to an account when read in TODO map to an account somehow
+                            DEFAULT)
+                    );
                 }
             }
         }
@@ -76,21 +72,4 @@ public class WellsFargoTransactionParser
 
         return transactions;
     }
-
-
-
-
-    /*public static void main(String... args)
-    {
-	    BasicConfigurator.configure();
-
-        WellsFargoTransactionParser wellsFargoTransactionParser = new WellsFargoTransactionParser("C:\\Users\\David\\Desktop\\Intelij Workspace\\Budget\\test_input_files\\Checking1.csv");
-
-        List<Transaction> transactions = wellsFargoTransactionParser.parseTransactions();
-
-        for (Transaction transaction : transactions)
-        {
-            System.out.println(transaction);
-        }
-    }*/
 }

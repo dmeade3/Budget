@@ -1,16 +1,24 @@
 Program:
 
-    [ ] make account selector pane function
-    [ ] make budget tab use the current transactions to fill out data function
+    [ ] make account selector pane work
+    [ ] make budget tab use the current transactions to fill out data work
 
 
-    [ ] sonce delete hit disable all input boxes
+
+    [ ] no user categories right now
+        -addbudgetsection should be able to pick from enums not already being used
+    [ ] make RefreshGui a class of its own if possible
+    [ ] in summary all should show the order of the accounts and when they were last updated, oldest since update should be in the top
+    [ ] should have a function to find gaps in the account dates
+
+    [ ] editors should be dialogs not stages
+        -all
+    [ ] eventually have option to add user categories
     [ ] sort all comboboxes
     [ ] dont bring up login popup if no password set
         -set password in some kind of admin preferences page
         -needs to be a way to set password
             -type in old password, then new
-    [ ] in transaction editor date should be a date picker
     [ ] inside the login pane
         -handle right pass
         -wrong pass
@@ -18,7 +26,6 @@ Program:
         -cancel
             -should not load new user or change the user in combo box
 
-    [ ] in editors, after hitting save or delete the popup should close
     [ ] make in main program data a list of account that are selected on the tree, will be destroyed and filled after every account tree change
     [ ] when reloading anything, keep the CURRENT_USER the same
         -if it was not changed
@@ -43,6 +50,9 @@ Program:
     -be able to add transactions
     -be able to add accounts
 
+    General Practices:
+        -All system.out.println() -> logger
+        -larger classes should be split up into smaller classes
 
     Summary Tab:
         -graphs as part of it, should also have a pane of non labeled data
@@ -55,14 +65,14 @@ Program:
     User:
         -user has associated mapping of vendors to categories
 
-        Budget: will have to make this object and store it in the mainprogramdata
+        Budget: will have to make this object and store it in the user
             -list of budget sections
             -total budgeted
             -only need a getter because it should be calculated for each call
             -total spent
 
         Account:
-            -balance should be stored in the accounts csv file and updated everytime there is a change to it
+            -balance should be stored in the accounts csv file and updated every time there is a change to it
 
         TransactionParser:
             -parser interface that all parsers have to implement
@@ -86,6 +96,7 @@ Program:
     Functionality:
         -take transactions from mint
         -investment tracking
+            -maybe make a tab of just have it as part of the summary
         -should say when account was last updated in summary tab
             -will need to add this to the account csv
             -make file find and replace util
@@ -93,7 +104,7 @@ Program:
 
         -when asking about where the csv came from, ask about accounts or bank, account should have mapping of csv in it
         -when account clicked on it should update the middle scrollpane with that account info
-        -replace all system.out with logger statements
+        -eventually make transaction editor datepicker limited to today and back as available dates
         -eventually take out all the creation dates
             -if ever going public with this will need to wipe all date info on it
             -github has the dates too
