@@ -32,7 +32,7 @@ public class RootPage
     {
         root = sceneRoot;
 
-        loadSceneRoot();
+        loadSceneRoot(0);
 
         // Set up scene
         scene.getStylesheets().add(SystemInfo.MAIN_STYLE_SHEET_NAME);
@@ -93,7 +93,7 @@ public class RootPage
         });
     }
 
-    private static void loadSceneRoot()
+    private static void loadSceneRoot(int selectedMainTabIndex)
     {
         root.setTop(new AdminPane());
 
@@ -102,9 +102,9 @@ public class RootPage
 
         root.setLeft(new AccountTreeView());
 
-        root.setCenter(new MainCenterTabPane());
-
-        //root.setRight(label3);
+        MainCenterTabPane mainCenterTabPane = new MainCenterTabPane();
+        mainCenterTabPane.getSelectionModel().select(selectedMainTabIndex);
+        root.setCenter(mainCenterTabPane);
 
         root.setBottom(new BottomFilterPane());
     }
@@ -117,9 +117,9 @@ public class RootPage
         root.setCenter(mainCenterTabPane);
     }
 
-    public static void reloadAll()
+    public static void reloadAll(int selectedMainTabIndex)
     {
-        loadSceneRoot();
+        loadSceneRoot(selectedMainTabIndex);
     }
 
     public static void reloadAllButAdminAndBottom(int tabIndexToSelect)

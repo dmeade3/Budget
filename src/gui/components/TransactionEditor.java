@@ -163,14 +163,6 @@ public class TransactionEditor extends GridPane
         add(categoryLabel, 0, 5);
         GridPane.setHalignment(categoryComboBox, HPos.LEFT);
         add(categoryComboBox, 1, 5);
-
-        // Save button
-        /*GridPane.setHalignment(saveButton, HPos.RIGHT);
-        add(saveButton, 1, 6);
-
-        // Delete Button
-        GridPane.setHalignment(deleteButton, HPos.RIGHT);
-        add(deleteButton, 0, 6);*/
     }
 
     private void addListeners()

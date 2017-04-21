@@ -10,6 +10,7 @@ Program:
     [ ] make RefreshGui a class of its own if possible
     [ ] in summary all should show the order of the accounts and when they were last updated, oldest since update should be in the top
     [ ] should have a function to find gaps in the account dates
+    [ ] when loading have the wholde screan show a loading screan so you know its not just frozen
 
     [ ] editors should be dialogs not stages
         -all
@@ -19,16 +20,8 @@ Program:
         -set password in some kind of admin preferences page
         -needs to be a way to set password
             -type in old password, then new
-    [ ] inside the login pane
-        -handle right pass
-        -wrong pass
-            -ask again for the password for 3 times then exit like cancel, opportunity to try again after trying to change user again
-        -cancel
-            -should not load new user or change the user in combo box
 
     [ ] make in main program data a list of account that are selected on the tree, will be destroyed and filled after every account tree change
-    [ ] when reloading anything, keep the CURRENT_USER the same
-        -if it was not changed
     [ ] when opening a data csv file if it doesnt exist then create a new one
         -maybe create all new csv files on user creation, include the headers
 
@@ -53,6 +46,7 @@ Program:
     General Practices:
         -All system.out.println() -> logger
         -larger classes should be split up into smaller classes
+        -Complete TODO's
 
     Summary Tab:
         -graphs as part of it, should also have a pane of non labeled data

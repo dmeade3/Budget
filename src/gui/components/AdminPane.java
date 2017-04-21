@@ -9,8 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
-import static util.SystemInfo.CURRENT_USER;
+import util.SystemInfo;
 
 /**
  * Created by dcmeade on 4/10/2017.
@@ -42,9 +41,9 @@ public class AdminPane extends TitledPane
 
         // Set the default user as the first in the list for now
         // TODO eventually save off the most recently used user and load here instead
-        dropDownUser.getSelectionModel().selectFirst();
+        dropDownUser.getSelectionModel().select(SystemInfo.CURRENT_USER);
 
-        CURRENT_USER = dropDownUser.getSelectionModel().getSelectedItem();
+        //CURRENT_USER = dropDownUser.getSelectionModel().getSelectedItem();
 
 	    // TODO
 	    // Buttons that add users, accounts, budget sections, transactions
@@ -82,21 +81,27 @@ public class AdminPane extends TitledPane
             {
                 MainProgramDatastore.getInstance().loadCurrentUser();
 
-                RootPage.reloadAll(); // TODO figure out a better way to do this, maybe map the tabs to their index
+                RootPage.reloadAll(MainProgramDatastore.getInstance().getSelectedMainTabIndex()); // TODO figure out a better way to do this, maybe map the tabs to their index
             });
         });
 
+
         dropDownUser.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) ->
         {
-            if ((t1 != null) && (!t.equals(t1)))
+            if (!LoginDialog.passwordCheck("", t1))
             {
-                new LoginDialog();
-
-                CURRENT_USER = dropDownUser.getSelectionModel().getSelectedItem();
+                if ((t1 != null) && (!t.equals(t1)))
+                {
+                    new LoginDialog(dropDownUser, t1);
+                }
+            }
+            else
+            {
+                SystemInfo.CURRENT_USER = t1;
 
                 MainProgramDatastore.getInstance().loadCurrentUser();
 
-                RootPage.reloadAllButAdminAndBottom(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
+                RootPage.reloadAll(MainProgramDatastore.getInstance().getSelectedMainTabIndex());
             }
         });
     }
