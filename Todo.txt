@@ -4,7 +4,9 @@ Program:
     [ ] make budget tab use the current transactions to fill out data work
 
 
-
+    [ ] RestrictedTextField Class extends textfield
+        -replaceall text fields with
+        -use regex to filter
     [ ] no user categories right now
         -addbudgetsection should be able to pick from enums not already being used
     [ ] make RefreshGui a class of its own if possible
